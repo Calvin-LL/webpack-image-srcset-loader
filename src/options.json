@@ -1,0 +1,21 @@
+{
+  "additionalProperties": true,
+  "type": "object",
+  "required": ["sizes"],
+  "properties": {
+    "sizes": {
+      "description": "Sizes in the output srcset.",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    }
+  }
+}
