@@ -47,7 +47,7 @@
     "schema-utils": "^2.7.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
+    "@commitlint/cli": "^9.0.1",
     "@commitlint/config-conventional": "^8.3.4",
     "@types/jest": "^26.0.0",
     "@types/json5": "0.0.30",
