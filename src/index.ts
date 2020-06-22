@@ -30,14 +30,7 @@ export function pitch(this: loader.LoaderContext, remainingRequest: string) {
   });
 
   validateSizes(fullOptions.sizes);
-  console.log(
-    `module.exports = \`${generateSrcSetString(
-      remainingRequest,
-      this.loaders,
-      this.loaderIndex,
-      fullOptions
-    )}\`;`
-  );
+
   return `module.exports = \`${generateSrcSetString(
     remainingRequest,
     this.loaders,
