@@ -14,15 +14,7 @@ export interface OPTIONS {
 
 export const raw = true;
 
-export function pitch(
-  this: loader.LoaderContext,
-  remainingRequest: string,
-  precedingRequest: string,
-  data: any
-) {
-  // if (this.data.processed) return;
-  // this.data.processed = true;
-
+export function pitch(this: loader.LoaderContext, remainingRequest: string) {
   const options = loaderUtils.getOptions(this) as Partial<OPTIONS> | null;
   const queryObject = this.resourceQuery
     ? (loaderUtils.parseQuery(this.resourceQuery) as Partial<OPTIONS>)
