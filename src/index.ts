@@ -1,3 +1,4 @@
+import JSON5 from "json5";
 import loaderUtils from "loader-utils";
 import validateOptions from "schema-utils";
 import { JSONSchema7 } from "schema-utils/declarations/validate";
@@ -68,8 +69,8 @@ function generateSrcSetString(
   const sizes = options.sizes;
   const maxDensity = getMaxDensity(sizes);
   const separator = ", ";
-  const requireStart = "${require('-!";
-  const requireEnd = "')}";
+  const requireStart = '${require("-!';
+  const requireEnd = '")}';
 
   for (const size of sizes) {
     if (!size) {
@@ -121,17 +122,38 @@ function addOptionsToResizeLoader(
       resizeLoaderRequest,
       resizeLoaderPath +
         "?" +
-        JSON.stringify({ ...resizeLoaderOptions, ...options })
+        escapeJsonStringForLoader(
+          JSON5.stringify({
+            ...resizeLoaderOptions,
+            ...options,
+            fileLoaderOptions: {
+              ...resizeLoaderOptions.fileLoaderOptions,
+              esModule: false, // because we're using require in pitch
+            },
+          })
+        )
     );
   if (queryLoaderOptions)
     return remainingRequest.replace(
       resizeLoaderRequest,
       resizeLoaderPath +
         "?" +
-        JSON.stringify({
-          queryLoaderOptions,
-          use: { ...queryLoaderOptions.use, ...options },
-        })
+        escapeJsonStringForLoader(
+          JSON5.stringify({
+            ...queryLoaderOptions,
+            use: {
+              loader: queryLoaderOptions.use.loader,
+              options: {
+                ...queryLoaderOptions.use.options,
+                ...options,
+                fileLoaderOptions: {
+                  ...queryLoaderOptions.use.options.fileLoaderOptions,
+                  esModule: false, // because we're using require in pitch
+                },
+              },
+            },
+          })
+        )
     );
 }
 
@@ -162,4 +184,8 @@ function getResizeLoader(loaders: any[]) {
   }
 
   throw "webpack-image-resize-loader not found";
+}
+
+function escapeJsonStringForLoader(s: string) {
+  return s.replace(/\!/g, "\\\\x21");
 }
