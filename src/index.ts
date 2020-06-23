@@ -13,7 +13,7 @@ export interface OPTIONS {
   customOptionsFactory?: (
     width: number | undefined,
     scale: number | undefined,
-    existingOptions: object
+    existingOptions: object | undefined
   ) => string;
 }
 
