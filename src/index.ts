@@ -165,11 +165,12 @@ function addOptionsToResizeLoader(
 }
 
 function normalizeQueryLoaderOptions(
-  options: string | any
+  options: any
 ): { use: { loader: string; options?: any } } {
-  if (typeof options === "string")
+  if (typeof options.use === "string")
     return {
-      use: { loader: options },
+      ...options,
+      use: { loader: options.use },
     };
 
   return options;
