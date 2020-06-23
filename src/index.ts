@@ -90,35 +90,16 @@ function addOptionsToResizeLoader(
   loaderIndex: number,
   options: object
 ) {
-  const {
-    index: resizeLoaderIndex,
-    resizeLoaderOptions,
-    queryLoaderOptions,
-  } = getResizeLoader(loaders);
+  const nextLoader = loaders[loaderIndex + 1];
+  const isNextLoaderQueryLoader = getIsLoaderQueryLoader(nextLoader);
 
-  if (resizeLoaderIndex < loaderIndex)
-    throw "webpack-image-resize-loader should be placed after webpack-image-srcset-loader";
+  const resizeLoaderOptions = nextLoader.options;
+  const resizeLoaderRequest = nextLoader.request;
+  const resizeLoaderPath = nextLoader.path;
 
-  const resizeLoaderRequest = loaders[resizeLoaderIndex].request;
-  const resizeLoaderPath = loaders[resizeLoaderIndex].path;
+  if (isNextLoaderQueryLoader) {
+    const queryLoaderOptions = normalizeQueryLoaderOptions(resizeLoaderOptions);
 
-  if (resizeLoaderOptions)
-    return remainingRequest.replace(
-      resizeLoaderRequest,
-      resizeLoaderPath +
-        "?" +
-        escapeJsonStringForLoader(
-          JSON5.stringify({
-            ...resizeLoaderOptions,
-            ...options,
-            fileLoaderOptions: {
-              ...resizeLoaderOptions.fileLoaderOptions,
-              esModule: false, // because we're using require in pitch
-            },
-          })
-        )
-    );
-  if (queryLoaderOptions)
     return remainingRequest.replace(
       resizeLoaderRequest,
       resizeLoaderPath +
@@ -132,7 +113,7 @@ function addOptionsToResizeLoader(
                 ...queryLoaderOptions.use.options,
                 ...options,
                 fileLoaderOptions: {
-                  ...queryLoaderOptions.use.options.fileLoaderOptions,
+                  ...queryLoaderOptions.use.options?.fileLoaderOptions,
                   esModule: false, // because we're using require in pitch
                 },
               },
@@ -140,35 +121,43 @@ function addOptionsToResizeLoader(
           })
         )
     );
-}
-
-function getResizeLoader(loaders: any[]) {
-  for (let i = 0; i < loaders.length; i++) {
-    const loader = loaders[i];
-
-    if ((loader.path as string).includes("webpack-image-resize-loader")) {
-      return { index: i, resizeLoaderOptions: loader.options };
-    } else if (
-      (loader.options?.use as string) === "webpack-image-resize-loader"
-    ) {
-      return {
-        index: i,
-        queryLoaderOptions: {
-          ...loader.options,
-          use: { loader: "webpack-image-resize-loader" },
-        },
-      };
-    } else if (
-      (loader.options?.use?.loader as string) === "webpack-image-resize-loader"
-    ) {
-      return {
-        index: i,
-        queryLoaderOptions: loader.options,
-      };
-    }
   }
 
-  throw "webpack-image-resize-loader not found";
+  return remainingRequest.replace(
+    resizeLoaderRequest,
+    resizeLoaderPath +
+      "?" +
+      escapeJsonStringForLoader(
+        JSON5.stringify({
+          ...resizeLoaderOptions,
+          ...options,
+          fileLoaderOptions: {
+            ...resizeLoaderOptions?.fileLoaderOptions,
+            esModule: false, // because we're using require in pitch
+          },
+        })
+      )
+  );
+}
+
+function normalizeQueryLoaderOptions(
+  options: string | any
+): { use: { loader: string; options?: any } } {
+  if (typeof options === "string")
+    return {
+      use: { loader: options },
+    };
+
+  return options;
+}
+
+function getIsLoaderQueryLoader(nextLoader: any) {
+  if (nextLoader === undefined)
+    throw "webpack-image-srcset-loader must be placed at the beginning and followed by a resize loader";
+
+  if ((nextLoader.path as string).includes("webpack-query-loader")) return true;
+
+  return false;
 }
 
 function escapeJsonStringForLoader(s: string) {
