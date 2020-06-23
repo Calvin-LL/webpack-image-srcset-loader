@@ -10,6 +10,11 @@ import schema from "./options.json";
 
 export interface OPTIONS {
   sizes: (string | null)[];
+  customOptionsFactory?: (
+    width: number | undefined,
+    scale: number | undefined,
+    existingOptions: object
+  ) => string;
 }
 
 export const raw = true;
@@ -63,7 +68,8 @@ function generateSrcSetString(
         remainingRequest,
         loaders,
         loaderIndex,
-        {}
+        {},
+        options.customOptionsFactory
       )}${requireEnd}${separator}`;
 
       continue;
@@ -75,7 +81,8 @@ function generateSrcSetString(
       remainingRequest,
       loaders,
       loaderIndex,
-      resizeLoaderOption
+      resizeLoaderOption,
+      options.customOptionsFactory
     )}${requireEnd} ${size}${separator}`;
   }
 
@@ -88,7 +95,8 @@ function addOptionsToResizeLoader(
   remainingRequest: string,
   loaders: any[],
   loaderIndex: number,
-  options: object
+  options: { width?: number; scale?: number },
+  customOptionsFactory: OPTIONS["customOptionsFactory"]
 ) {
   const nextLoader = loaders[loaderIndex + 1];
   const isNextLoaderQueryLoader = getIsLoaderQueryLoader(nextLoader);
@@ -96,6 +104,22 @@ function addOptionsToResizeLoader(
   const resizeLoaderOptions = nextLoader.options;
   const resizeLoaderRequest = nextLoader.request;
   const resizeLoaderPath = nextLoader.path;
+
+  if (customOptionsFactory)
+    return remainingRequest.replace(
+      resizeLoaderRequest,
+      resizeLoaderPath +
+        "?" +
+        escapeJsonStringForLoader(
+          JSON5.stringify(
+            customOptionsFactory(
+              options.width,
+              options.scale,
+              resizeLoaderOptions
+            )
+          )
+        )
+    );
 
   if (isNextLoaderQueryLoader) {
     const queryLoaderOptions = normalizeQueryLoaderOptions(resizeLoaderOptions);

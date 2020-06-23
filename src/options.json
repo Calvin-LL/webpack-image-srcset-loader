@@ -16,6 +16,10 @@
           }
         ]
       }
+    },
+    "customOptionsFactory": {
+      "description": "A function that returns the option to be passed on to the next loader.",
+      "instanceof": "Function"
     }
   }
 }
