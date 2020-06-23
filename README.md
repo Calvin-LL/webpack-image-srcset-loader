@@ -31,7 +31,7 @@ yarn add webpack-image-srcset-loader webpack-image-resize-loader --dev
 
 ### Use with [webpack-query-loader](https://github.com/CoolCyberBrain/webpack-query-loader)
 
-Use this if you only want some import of images to be in the srcset format
+Use [webpack-query-loader](https://github.com/CoolCyberBrain/webpack-query-loader) if you only want some import of images to be in the srcset format
 
 ```javascript
 import jpg from "./some_pic.jpg?srcset";
@@ -57,7 +57,7 @@ module.exports = {
           {
             loader: "webpack-query-loader",
             options: {
-              resourceQuery: "srcset",
+              resourceQuery: "srcset", // run only if the url query has "srcset"
               use: {
                 loader: "webpack-image-srcset-loader",
                 options: {
@@ -69,7 +69,7 @@ module.exports = {
           {
             loader: "webpack-query-loader",
             options: {
-              resourceQuery: "srcset",
+              resourceQuery: "srcset", // run only if the url query has "srcset"
               use: "webpack-image-resize-loader",
             },
           },
@@ -132,9 +132,9 @@ module.exports = {
 
 An array containing strings in the format `"[number]w"`, `"[number]x"`, or `null`. The numbers cannot contain decimals.
 
-This is allowed: `["10w", "1x", "2x", null]`
+Allowed: `["10w", "1x", "2x", null]`
 
-This is not allowed: `["10.0w", "1.5x", "2.0x"]`
+Not allowed: `["10.0w", "1.5x", "2.0x"]`
 
 When using `"[number]x"`, the original size of the image will be used for the greatest value. For example, if an image is `10×10` in size, and `sizes` is `["1x", "2x"]`, the output image will have sizes `5×5` for `"1x"` and `10×10` for `"2x"`.
 
