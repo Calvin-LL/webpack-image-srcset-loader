@@ -5,11 +5,8 @@
   "keywords": [
     "webpack",
     "loader",
-    "conditional",
-    "query",
-    "resourceQuery",
-    "parameter",
-    "url"
+    "srcset",
+    "image"
   ],
   "main": "dist/cjs.js",
   "files": [
