@@ -6,9 +6,12 @@ import getCompiler from "./helpers/getCompiler";
 import readAsset from "./helpers/readAsset";
 
 test("use with webpack-query-loader", async () => {
-  const compiler = getCompiler({
-    sizes: ["1x", "300w", null, "2x"],
-  });
+  const compiler = getCompiler(
+    {
+      sizes: ["1x", "300w", null, "2x"],
+    },
+    true
+  );
   const stats = await compile(compiler);
 
   expect(
