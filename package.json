@@ -1,6 +1,6 @@
 {
   "name": "webpack-image-srcset-loader",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Generate srcset string from image",
   "keywords": [
     "webpack",
