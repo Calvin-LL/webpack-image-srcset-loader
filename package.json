@@ -63,7 +63,7 @@
     "typescript": "^3.9.5",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
-    "webpack-image-resize-loader": "^2.0.4",
+    "webpack-image-resize-loader": "^2.0.6",
     "webpack-query-loader": "^2.0.0"
   }
 }
