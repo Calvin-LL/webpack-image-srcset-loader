@@ -6,6 +6,18 @@ exports[`validate options should throw an error on the "customOptionsFactory" op
    -> A function that returns the option to be passed on to the next loader."
 `;
 
+exports[`validate options should throw an error on the "esModule" option with "true" value 1`] = `
+"Invalid options object. Image SrcSet Loader has been initialized using an options object that does not match the API schema.
+ - options.esModule should be a boolean.
+   -> By default, webpack-image-placeholder-loader generates JS modules that use the ES modules syntax. Default to true."
+`;
+
+exports[`validate options should throw an error on the "scaleUp" option with "true" value 1`] = `
+"Invalid options object. Image SrcSet Loader has been initialized using an options object that does not match the API schema.
+ - options.scaleUp should be a boolean.
+   -> Whether or not to scale up the image when the desired size is larger than the image size. Default to false."
+`;
+
 exports[`validate options should throw an error on the "sizes" option with ["0.5"] value 1`] = `
 "(Emitted value instead of an instance of Error) Invalid options object. Image SrcSet Loader has been initialised using an options object that does not match the API schema.
       - options.sizes ["0.5"] is not a valid value."

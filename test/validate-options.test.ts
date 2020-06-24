@@ -9,9 +9,17 @@ describe("validate options", () => {
       success: [["10w", "1x", "2x", null]],
       failure: [["10.0w"], ["10h"], ["0.5x"], ["0.5"], ["10"], [3]],
     },
+    scaleUp: {
+      success: [true, false],
+      failure: ["true"],
+    },
     customOptionsFactory: {
       success: [() => ({})],
       failure: [true],
+    },
+    esModule: {
+      success: [true, false],
+      failure: ["true"],
     },
   };
 

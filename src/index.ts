@@ -2,7 +2,8 @@ import JSON5 from "json5";
 import loaderUtils from "loader-utils";
 import validateOptions from "schema-utils";
 import { JSONSchema7 } from "schema-utils/declarations/validate";
-import { loader } from "webpack";
+import sharp from "sharp";
+import { InputFileSystem, loader } from "webpack";
 
 import { getMaxDensity, getOptionFromSize } from "./helpers/sizes";
 import { validateSizes } from "./helpers/validation";
@@ -10,6 +11,7 @@ import schema from "./options.json";
 
 export interface OPTIONS {
   sizes: (string | null)[];
+  scaleUp: boolean;
   customOptionsFactory?: (
     width: number | undefined,
     scale: number | undefined,
@@ -21,6 +23,7 @@ export interface OPTIONS {
 export const raw = true;
 
 export function pitch(this: loader.LoaderContext, remainingRequest: string) {
+  const callback = this.async();
   const options = loaderUtils.getOptions(this) as Partial<OPTIONS> | null;
   const queryObject = this.resourceQuery
     ? (loaderUtils.parseQuery(this.resourceQuery) as Partial<OPTIONS>)
@@ -39,27 +42,41 @@ export function pitch(this: loader.LoaderContext, remainingRequest: string) {
 
   const esModule = fullOptions.esModule ?? true;
 
-  return `${
-    esModule ? "export default" : "module.exports ="
-  }  \`${generateSrcSetString(
+  generateSrcSetString(
     remainingRequest,
     this.loaders,
     this.loaderIndex,
-    fullOptions
-  )}\`;`;
+    fullOptions,
+    this.fs,
+    this.resourcePath
+  )
+    .then((srcSetString) => {
+      callback?.(
+        null,
+        `${
+          esModule ? "export default" : "module.exports ="
+        }  \`${srcSetString}\`;`
+      );
+    })
+    .catch((e) => {
+      callback?.(e);
+    });
 }
 
 export default function (this: loader.LoaderContext, source: Buffer) {
   return source;
 }
 
-function generateSrcSetString(
+async function generateSrcSetString(
   remainingRequest: string,
   loaders: any[],
   loaderIndex: number,
-  options: OPTIONS
+  options: OPTIONS,
+  fs: InputFileSystem,
+  resourcePath: string
 ) {
   let result = "";
+  let width: number | undefined;
 
   const sizes = options.sizes;
   const maxDensity = getMaxDensity(sizes);
@@ -81,6 +98,15 @@ function generateSrcSetString(
     }
 
     const resizeLoaderOption = getOptionFromSize(size, maxDensity);
+
+    if (!options.scaleUp && resizeLoaderOption.width !== undefined) {
+      if (width === undefined) {
+        const buffer = fs.readFileSync(resourcePath);
+        width = (await sharp(buffer).metadata()).width;
+      }
+
+      if (width !== undefined && resizeLoaderOption.width > width) continue;
+    }
 
     result += `${requireStart}${addOptionsToResizeLoader(
       remainingRequest,
@@ -139,6 +165,7 @@ function addOptionsToResizeLoader(
             use: {
               loader: queryLoaderOptions.use.loader,
               options: {
+                scaleUp: true,
                 ...queryLoaderOptions.use.options,
                 ...options,
                 fileLoaderOptions: {
@@ -158,6 +185,7 @@ function addOptionsToResizeLoader(
       "?" +
       escapeJsonStringForLoader(
         JSON5.stringify({
+          scaleUp: true,
           ...resizeLoaderOptions,
           ...options,
           fileLoaderOptions: {

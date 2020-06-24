@@ -135,11 +135,12 @@ module.exports = {
 
 ## Options
 
-| Name                                                | Type               | Default   | Description                                                            |
-| --------------------------------------------------- | ------------------ | --------- | ---------------------------------------------------------------------- |
-| **[`sizes`](#sizes)**                               | `(string\|null)[]` | undefined | Sizes in the output srcset.                                            |
-| **[`customOptionsFactory`](#customoptionsfactory)** | `function`         | undefined | A function that returns the option to be passed on to the next loader. |
-| **[`esModule`](#esmodule)**                         | `boolean`          | `true`    | Whether the export is in ES modules syntax or CommonJS modules syntax  |
+| Name                                                | Type               | Default   | Description                                                                                  |
+| --------------------------------------------------- | ------------------ | --------- | -------------------------------------------------------------------------------------------- |
+| **[`sizes`](#sizes)**                               | `(string\|null)[]` | undefined | Sizes in the output srcset.                                                                  |
+| **[`scaleUp`](#scaleup)**                           | `boolean`          | `false`   | Whether or not to scale up the image when the desired width is greater than the image width. |
+| **[`customOptionsFactory`](#customoptionsfactory)** | `function`         | undefined | A function that returns the option to be passed on to the next loader.                       |
+| **[`esModule`](#esmodule)**                         | `boolean`          | `true`    | Whether the export is in ES modules syntax or CommonJS modules syntax                        |
 
 ### `sizes`
 
@@ -150,6 +151,12 @@ Allowed: `["10w", "1x", "2x", null]`
 Not allowed: `["10.0w", "1.5x", "2.0x"]`
 
 When using `"[number]x"`, the original size of the image will be used for the greatest value. For example, if an image is `10×10` in size, and `sizes` is `["1x", "2x"]`, the output image will have sizes `5×5` for `"1x"` and `10×10` for `"2x"`.
+
+### `scaleUp`
+
+When true, if the desired width is greater than the image width, the size will not be included in the output srcset string. For example, if the original image is `10×10` in size, and the `sizes` array is `["5w", "10w", "15w"]`, when `scaleUp` is `true` the output string is `"image1.jpg 5w, image2.jpg 10w, image3.jpg 15w"`, when `scaleUp` is `false` the output string is `"image1.jpg 5w, image2.jpg 10w"`.
+
+Note: this option has no effect on `"[number]x"` or `null`
 
 ### `customOptionsFactory`
 
