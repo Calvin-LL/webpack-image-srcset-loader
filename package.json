@@ -64,6 +64,6 @@
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
     "webpack-image-resize-loader": "^2.0.4",
-    "webpack-query-loader": "^2.0.0"
+    "webpack-query-loader": "^2.0.2"
   }
 }
