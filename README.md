@@ -44,6 +44,18 @@ You can override the `sizes` in options by
 import jpg from "./some_pic.jpg?srcset&sizes[]=1x&sizes[]=2x&sizes[]=3x";
 ```
 
+Install with npm:
+
+```bash
+npm install webpack-query-loader --save-dev
+```
+
+Install with yarn:
+
+```bash
+yarn add webpack-query-loader --dev
+```
+
 #### webpack.config.js
 
 ```javascript
