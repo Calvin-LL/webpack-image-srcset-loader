@@ -139,6 +139,7 @@ module.exports = {
 | --------------------------------------------------- | ------------------ | --------- | ---------------------------------------------------------------------- |
 | **[`sizes`](#sizes)**                               | `(string\|null)[]` | undefined | Sizes in the output srcset.                                            |
 | **[`customOptionsFactory`](#customoptionsfactory)** | `function`         | undefined | A function that returns the option to be passed on to the next loader. |
+| **[`esModule`](#esmodule)**                         | `boolean`          | `true`    | Whether the export is in ES modules syntax or CommonJS modules syntax  |
 
 ### `sizes`
 
@@ -170,3 +171,7 @@ For example, if `sizes` is `["10w", "1x", "2x", null]`, `customOptionsFactory` w
 - `customOptionsFactory(undefined, 1, existingOptions)` for `1x`
 - `customOptionsFactory(undefined, 2, existingOptions)` for `2x`
 - `customOptionsFactory(undefined, undefined, existingOptions)` for `null`
+
+### `esModule`
+
+Whether the export is in ES modules syntax or CommonJS modules syntax. If you don't know what it is or whether or not you need it, leave is as default.

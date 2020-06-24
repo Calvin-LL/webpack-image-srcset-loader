@@ -15,6 +15,7 @@ export interface OPTIONS {
     scale: number | undefined,
     existingOptions: object | undefined
   ) => string;
+  esModule: boolean;
 }
 
 export const raw = true;
@@ -36,7 +37,11 @@ export function pitch(this: loader.LoaderContext, remainingRequest: string) {
 
   validateSizes(fullOptions.sizes);
 
-  return `module.exports = \`${generateSrcSetString(
+  const esModule = fullOptions.esModule ?? true;
+
+  return `${
+    esModule ? "export default" : "module.exports ="
+  }  \`${generateSrcSetString(
     remainingRequest,
     this.loaders,
     this.loaderIndex,
