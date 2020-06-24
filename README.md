@@ -138,7 +138,7 @@ module.exports = {
 | Name                                                | Type               | Default   | Description                                                            |
 | --------------------------------------------------- | ------------------ | --------- | ---------------------------------------------------------------------- |
 | **[`sizes`](#sizes)**                               | `(string\|null)[]` | undefined | Sizes in the output srcset.                                            |
-| **[`customOptionsFactory`](#customOptionsFactory)** | `function`         | undefined | A function that returns the option to be passed on to the next loader. |
+| **[`customOptionsFactory`](#customoptionsfactory)** | `function`         | undefined | A function that returns the option to be passed on to the next loader. |
 
 ### `sizes`
 
