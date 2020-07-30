@@ -64,7 +64,7 @@
     "ts-jest": "^26.1.4",
     "typescript": "^3.9.6",
     "url-loader": "^4.1.0",
-    "webpack": "^4.44.0",
+    "webpack": "^4.44.1",
     "webpack-image-resize-loader": "^2.0.6",
     "webpack-query-loader": "^2.0.2"
   }
