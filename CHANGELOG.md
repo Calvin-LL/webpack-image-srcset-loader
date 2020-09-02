@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/CoolCyberBrain/webpack-image-srcset-loader/compare/v2.0.0...v3.0.0) (2020-09-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** Update to [sharp@0.26](https://sharp.pixelplumbing.com/changelog#v026---zoom)
+
+* **deps:** update packages ([9be971b](https://github.com/CoolCyberBrain/webpack-image-srcset-loader/commit/9be971bd78ad1063f033f297a75d59e3f2bb37c4))
+
 ## [2.0.0](https://github.com/CoolCyberBrain/webpack-image-srcset-loader/compare/v1.0.2...v2.0.0) (2020-06-24)
 
 
