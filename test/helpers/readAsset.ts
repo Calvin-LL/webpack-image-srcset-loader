@@ -12,7 +12,7 @@ export default (
   let data = "";
 
   try {
-    // @ts-ignore
+    // @ts-expect-error
     data = usedFs.readFileSync(path.join(outputPath, asset)).toString();
   } catch (error) {
     data = error.toString();

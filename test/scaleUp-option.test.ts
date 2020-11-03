@@ -5,12 +5,12 @@ import execute from "./helpers/execute";
 import getCompiler from "./helpers/getCompiler";
 import readAsset from "./helpers/readAsset";
 
-describe('"scaleUp" option', () => {
+describe.each([4, 5] as const)('v%d "scaleUp" option', (webpackVersion) => {
   test("should not skip original size", async () => {
-    const compiler = getCompiler({
+    const compiler = getCompiler(webpackVersion, {
       sizes: ["2912w"],
     });
-    const stats = await compile(compiler);
+    const stats = await compile(webpackVersion, compiler);
 
     expect(
       execute(readAsset("main.bundle.js", compiler, stats as webpack.Stats))
@@ -18,10 +18,10 @@ describe('"scaleUp" option', () => {
   });
 
   test("should skip greater size", async () => {
-    const compiler = getCompiler({
+    const compiler = getCompiler(webpackVersion, {
       sizes: ["2913w", "1x"],
     });
-    const stats = await compile(compiler);
+    const stats = await compile(webpackVersion, compiler);
 
     expect(
       execute(readAsset("main.bundle.js", compiler, stats as webpack.Stats))
@@ -29,11 +29,11 @@ describe('"scaleUp" option', () => {
   });
 
   test("should work with true", async () => {
-    const compiler = getCompiler({
+    const compiler = getCompiler(webpackVersion, {
       sizes: ["2913w"],
       scaleUp: true,
     });
-    const stats = await compile(compiler);
+    const stats = await compile(webpackVersion, compiler);
 
     expect(
       execute(readAsset("main.bundle.js", compiler, stats as webpack.Stats))

@@ -1,14 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`"esModule" option should work with default true: result 1`] = `
+exports[`v4 "esModule" option should work with default true: result 1`] = `
 Object {
   "default": "",
 }
 `;
 
-exports[`"esModule" option should work with false: result 1`] = `""`;
+exports[`v4 "esModule" option should work with false: result 1`] = `""`;
 
-exports[`"esModule" option should work with true: result 1`] = `
+exports[`v4 "esModule" option should work with true: result 1`] = `
+Object {
+  "default": "",
+}
+`;
+
+exports[`v5 "esModule" option should work with default true: result 1`] = `
+Object {
+  "default": "",
+}
+`;
+
+exports[`v5 "esModule" option should work with false: result 1`] = `""`;
+
+exports[`v5 "esModule" option should work with true: result 1`] = `
 Object {
   "default": "",
 }

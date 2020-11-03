@@ -2,8 +2,10 @@ import path from "path";
 
 import { Volume, createFsFromVolume } from "memfs";
 import webpack from "webpack";
+import webpack5 from "webpack5";
 
 export default (
+  webpackVersion: 4 | 5,
   loaderOptions?: any,
   useQueryLoader = false,
   fileName = "simple.js"
@@ -15,6 +17,7 @@ export default (
     context: fixturesDir,
     entry: path.resolve(fixturesDir, fileName),
     output: {
+      publicPath: "",
       path: path.resolve(__dirname, "..", "/outputs"),
       filename: "[name].bundle.js",
       chunkFilename: "[name].chunk.js",
@@ -66,14 +69,15 @@ export default (
     },
   };
 
-  const compiler = webpack(fullConfig as webpack.Configuration);
+  const wp = (webpackVersion === 5 ? webpack5 : webpack) as typeof webpack;
+  const compiler = wp(fullConfig as webpack.Configuration);
 
   const outputFileSystem = createFsFromVolume(new Volume());
   // Todo remove when we drop webpack@4 support
-  // @ts-ignore
+  // @ts-expect-error
   outputFileSystem.join = path.join.bind(path);
 
-  // @ts-ignore
+  // @ts-expect-error
   compiler.outputFileSystem = outputFileSystem;
 
   return compiler;
