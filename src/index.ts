@@ -1,7 +1,7 @@
 import JSON5 from "json5";
 import loaderUtils from "loader-utils";
-import validateOptions from "schema-utils";
-import { JSONSchema7 } from "schema-utils/declarations/validate";
+import { validate } from "schema-utils";
+import { Schema } from "schema-utils/declarations/validate";
 import sharp from "sharp";
 import { InputFileSystem, loader } from "webpack";
 
@@ -33,7 +33,7 @@ export function pitch(this: loader.LoaderContext, remainingRequest: string) {
     ...queryObject,
   } as unknown) as OPTIONS;
 
-  validateOptions(schema as JSONSchema7, fullOptions, {
+  validate(schema as Schema, fullOptions, {
     name: "Image SrcSet Loader",
     baseDataPath: "options",
   });
