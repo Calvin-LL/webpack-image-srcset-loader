@@ -29,9 +29,9 @@ yarn add webpack-image-srcset-loader webpack-image-resize-loader --dev
 
 ## Usage
 
-### Use with [webpack-query-loader](https://github.com/CoolCyberBrain/webpack-query-loader)
+### Use with [webpack-query-loader](https://github.com/Calvin-LL/webpack-query-loader)
 
-Use [webpack-query-loader](https://github.com/CoolCyberBrain/webpack-query-loader) if you only want some import of images to be in the srcset format
+Use [webpack-query-loader](https://github.com/Calvin-LL/webpack-query-loader) if you only want some import of images to be in the srcset format
 
 ```javascript
 import jpg from "./some_pic.jpg?srcset";
@@ -100,7 +100,7 @@ module.exports = {
 
 ```
 
-### Use without [webpack-query-loader](https://github.com/CoolCyberBrain/webpack-query-loader)
+### Use without [webpack-query-loader](https://github.com/Calvin-LL/webpack-query-loader)
 
 All image imports will be in the srcset format
 
@@ -160,7 +160,7 @@ Note: this option has no effect on `"[number]x"` or `null`
 
 ### `customOptionsFactory`
 
-If you wish to use a resize loader other than [webpack-image-resize-loader](https://github.com/CoolCyberBrain/webpack-image-resize-loader). You may customize how the width and scale is passed down to that loader`s options.
+If you wish to use a resize loader other than [webpack-image-resize-loader](https://github.com/Calvin-LL/webpack-image-resize-loader). You may customize how the width and scale is passed down to that loader`s options.
 
 ```
 // width is either a number or undefined

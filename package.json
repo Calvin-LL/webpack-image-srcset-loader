@@ -28,9 +28,9 @@
     "email": "npm@calvin.sh",
     "url": "https://calvin.sh"
   },
-  "repository": "CoolCyberBrain/webpack-image-srcset-loader",
-  "bugs": "https://github.com/CoolCyberBrain/webpack-image-srcset-loader/issues",
-  "homepage": "https://github.com/CoolCyberBrain/webpack-image-srcset-loader",
+  "repository": "Calvin-LL/webpack-image-srcset-loader",
+  "bugs": "https://github.com/Calvin-LL/webpack-image-srcset-loader/issues",
+  "homepage": "https://github.com/Calvin-LL/webpack-image-srcset-loader",
   "license": "MIT",
   "engines": {
     "node": ">= 10.13.0"
