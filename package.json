@@ -63,7 +63,7 @@
     "pretty-quick": "^3.0.2",
     "standard-version": "^9.0.0",
     "ts-jest": "^26.4.4",
-    "typescript": "^4.0.2",
+    "typescript": "^4.1.2",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.2",
     "webpack-image-resize-loader": "^3.0.3",
