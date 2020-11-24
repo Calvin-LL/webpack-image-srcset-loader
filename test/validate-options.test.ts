@@ -1,7 +1,6 @@
 import webpack from "webpack";
 
-import compile from "./helpers/compile";
-import getCompiler from "./helpers/getCompiler";
+import WISLWebpackTestCompiler from "./helpers/WISLWebpackTestCompiler";
 
 describe.each([4, 5] as const)("v%d validate options", (webpackVersion) => {
   const tests = {
@@ -31,15 +30,20 @@ describe.each([4, 5] as const)("v%d validate options", (webpackVersion) => {
     test(`should ${
       type === "success" ? "successfully validate" : "throw an error on"
     } the "${key}" option with ${JSON.stringify(value)} value`, async () => {
-      const compiler = getCompiler(webpackVersion, {
-        sizes: [null],
-        [key]: value,
-      });
+      const compiler = new WISLWebpackTestCompiler({ webpackVersion });
 
       let stats;
 
       try {
-        stats = await compile(webpackVersion, compiler);
+        stats = (
+          await compiler.compile({
+            loaderOptions: {
+              sizes: [null],
+              [key]: value,
+            },
+            throwOnError: false,
+          })
+        ).stats;
       } finally {
         if (type === "success") {
           expect((stats as webpack.Stats).hasErrors()).toBe(false);

@@ -1,58 +1,44 @@
-import webpack from "webpack";
-
-import compile from "./helpers/compile";
-import execute from "./helpers/execute";
-import getCompiler from "./helpers/getCompiler";
-import readAsset from "./helpers/readAsset";
+import WISLWebpackTestCompiler from "./helpers/WISLWebpackTestCompiler";
 
 describe.each([4, 5] as const)('v%d "esModule" option', (webpackVersion) => {
   test("should work with default true", async () => {
-    const compiler = getCompiler(
-      webpackVersion,
-      {
+    const compiler = new WISLWebpackTestCompiler({ webpackVersion });
+    const bundle = await compiler.compile({
+      loaderOptions: {
         sizes: [],
       },
-      false,
-      "simple-require.js"
-    );
-    const stats = await compile(webpackVersion, compiler);
+      fileContentOverride:
+        '__export__ = require("./Macaca_nigra_self-portrait_large.jpg");',
+    });
 
-    expect(
-      execute(readAsset("main.bundle.js", compiler, stats as webpack.Stats))
-    ).toMatchSnapshot("result");
+    expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 
   test("should work with true", async () => {
-    const compiler = getCompiler(
-      webpackVersion,
-      {
+    const compiler = new WISLWebpackTestCompiler({ webpackVersion });
+    const bundle = await compiler.compile({
+      loaderOptions: {
         sizes: [],
         esModule: true,
       },
-      false,
-      "simple-require.js"
-    );
-    const stats = await compile(webpackVersion, compiler);
+      fileContentOverride:
+        '__export__ = require("./Macaca_nigra_self-portrait_large.jpg");',
+    });
 
-    expect(
-      execute(readAsset("main.bundle.js", compiler, stats as webpack.Stats))
-    ).toMatchSnapshot("result");
+    expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 
   test("should work with false", async () => {
-    const compiler = getCompiler(
-      webpackVersion,
-      {
+    const compiler = new WISLWebpackTestCompiler({ webpackVersion });
+    const bundle = await compiler.compile({
+      loaderOptions: {
         sizes: [],
         esModule: false,
       },
-      false,
-      "simple-require.js"
-    );
-    const stats = await compile(webpackVersion, compiler);
+      fileContentOverride:
+        '__export__ = require("./Macaca_nigra_self-portrait_large.jpg");',
+    });
 
-    expect(
-      execute(readAsset("main.bundle.js", compiler, stats as webpack.Stats))
-    ).toMatchSnapshot("result");
+    expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 });

@@ -1,9 +1,4 @@
-import webpack from "webpack";
-
-import compile from "./helpers/compile";
-import execute from "./helpers/execute";
-import getCompiler from "./helpers/getCompiler";
-import readAsset from "./helpers/readAsset";
+import WISLWebpackTestCompiler from "./helpers/WISLWebpackTestCompiler";
 
 describe.each([4, 5] as const)(
   'v%d "customOptionsFactory" option',
@@ -14,19 +9,20 @@ describe.each([4, 5] as const)(
           esModule: false,
         },
       });
-      const compiler = getCompiler(webpackVersion, {
-        sizes: ["2x", null, "1x", "300w"],
-        customOptionsFactory: (
-          width: number | undefined,
-          scale: number | undefined,
-          existingOptions: object
-        ) => mockCustomOptionsFactory(width, scale, existingOptions),
-      });
-      const stats = await compile(webpackVersion, compiler);
 
-      expect(
-        execute(readAsset("main.bundle.js", compiler, stats as webpack.Stats))
-      ).toMatchSnapshot("result");
+      const compiler = new WISLWebpackTestCompiler({ webpackVersion });
+      const bundle = await compiler.compile({
+        loaderOptions: {
+          sizes: ["2x", null, "1x", "300w"],
+          customOptionsFactory: (
+            width: number | undefined,
+            scale: number | undefined,
+            existingOptions: object
+          ) => mockCustomOptionsFactory(width, scale, existingOptions),
+        },
+      });
+
+      expect(bundle.execute("main.js")).toMatchSnapshot("result");
 
       expect(mockCustomOptionsFactory).toHaveBeenCalled();
       expect(mockCustomOptionsFactory).toMatchSnapshot();
