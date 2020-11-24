@@ -1,6 +1,6 @@
 import { OPTIONS } from "../index";
 
-export function getMaxDensity(sizes: OPTIONS["sizes"]) {
+export function getMaxDensity(sizes: OPTIONS["sizes"]): number {
   const sizeDensityValueRegex = /^(\d+)(x)$/; // match more tha none digit followed by x
 
   const densities = sizes
@@ -14,7 +14,10 @@ export function getMaxDensity(sizes: OPTIONS["sizes"]) {
 export function getOptionFromSize(
   size: OPTIONS["sizes"][number],
   baseDensity: number
-) {
+): {
+  width?: number;
+  scale?: number;
+} {
   if (!size) return {};
 
   const sizeWidthValueRegex = /^(\d+)(w)$/; // match more tha none digit followed by w

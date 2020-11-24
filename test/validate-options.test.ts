@@ -26,7 +26,7 @@ describe.each([4, 5] as const)("v%d validate options", (webpackVersion) => {
     key: string,
     value: any,
     type: "success" | "failure"
-  ) {
+  ): void {
     test(`should ${
       type === "success" ? "successfully validate" : "throw an error on"
     } the "${key}" option with ${JSON.stringify(value)} value`, async () => {

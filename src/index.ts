@@ -15,14 +15,17 @@ export interface OPTIONS {
   customOptionsFactory?: (
     width: number | undefined,
     scale: number | undefined,
-    existingOptions: object | undefined
+    existingOptions: any | undefined
   ) => string;
   esModule: boolean;
 }
 
 export const raw = true;
 
-export function pitch(this: loader.LoaderContext, remainingRequest: string) {
+export function pitch(
+  this: loader.LoaderContext,
+  remainingRequest: string
+): void {
   const callback = this.async();
   const options = loaderUtils.getOptions(this) as Partial<OPTIONS> | null;
   const queryObject = this.resourceQuery
@@ -63,7 +66,7 @@ export function pitch(this: loader.LoaderContext, remainingRequest: string) {
     });
 }
 
-export default function (this: loader.LoaderContext, source: Buffer) {
+export default function (this: loader.LoaderContext, source: Buffer): Buffer {
   return source;
 }
 
@@ -74,7 +77,7 @@ async function generateSrcSetString(
   options: OPTIONS,
   fs: InputFileSystem,
   resourcePath: string
-) {
+): Promise<string> {
   let result = "";
   let width: number | undefined;
 
@@ -128,7 +131,7 @@ function addOptionsToResizeLoader(
   loaderIndex: number,
   options: { width?: number; scale?: number },
   customOptionsFactory: OPTIONS["customOptionsFactory"]
-) {
+): string {
   const nextLoader = loaders[loaderIndex + 1];
   const isNextLoaderQueryLoader = getIsLoaderQueryLoader(nextLoader);
 
@@ -209,7 +212,7 @@ function normalizeQueryLoaderOptions(
   return options;
 }
 
-function getIsLoaderQueryLoader(nextLoader: any) {
+function getIsLoaderQueryLoader(nextLoader: any): boolean {
   if (nextLoader === undefined)
     throw "webpack-image-srcset-loader must be placed at the beginning and followed by a resize loader";
 
@@ -218,6 +221,6 @@ function getIsLoaderQueryLoader(nextLoader: any) {
   return false;
 }
 
-function escapeJsonStringForLoader(s: string) {
-  return s.replace(/\!/g, "\\\\x21");
+function escapeJsonStringForLoader(s: string): string {
+  return s.replace(/!/g, "\\\\x21");
 }

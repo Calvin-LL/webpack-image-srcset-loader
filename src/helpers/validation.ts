@@ -1,6 +1,6 @@
 import { OPTIONS } from "../index";
 
-export function validateSizes(sizes: OPTIONS["sizes"]) {
+export function validateSizes(sizes: OPTIONS["sizes"]): void {
   const sizeValueValidationRegex = /^\d+(w|x)$/; // match more tha none digit followed by w or x
 
   if (
