@@ -17,7 +17,7 @@ describe.each([4, 5] as const)(
           customOptionsFactory: (
             width: number | undefined,
             scale: number | undefined,
-            existingOptions: any
+            existingOptions: Record<string, unknown>
           ) => mockCustomOptionsFactory(width, scale, existingOptions),
         },
       });

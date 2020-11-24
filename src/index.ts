@@ -15,7 +15,7 @@ export interface OPTIONS {
   customOptionsFactory?: (
     width: number | undefined,
     scale: number | undefined,
-    existingOptions: any | undefined
+    existingOptions: Record<string, unknown> | undefined
   ) => string;
   esModule: boolean;
 }
