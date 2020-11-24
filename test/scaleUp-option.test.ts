@@ -1,7 +1,7 @@
 import WISLWebpackTestCompiler from "./helpers/WISLWebpackTestCompiler";
 
 describe.each([4, 5] as const)('v%d "scaleUp" option', (webpackVersion) => {
-  test("should not skip original size", async () => {
+  it("should not skip original size", async () => {
     const compiler = new WISLWebpackTestCompiler({ webpackVersion });
     const bundle = await compiler.compile({
       loaderOptions: {
@@ -12,7 +12,7 @@ describe.each([4, 5] as const)('v%d "scaleUp" option', (webpackVersion) => {
     expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 
-  test("should skip greater size", async () => {
+  it("should skip greater size", async () => {
     const compiler = new WISLWebpackTestCompiler({ webpackVersion });
     const bundle = await compiler.compile({
       loaderOptions: {
@@ -23,7 +23,7 @@ describe.each([4, 5] as const)('v%d "scaleUp" option', (webpackVersion) => {
     expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 
-  test("should work with true", async () => {
+  it("should work with true", async () => {
     const compiler = new WISLWebpackTestCompiler({ webpackVersion });
     const bundle = await compiler.compile({
       loaderOptions: {

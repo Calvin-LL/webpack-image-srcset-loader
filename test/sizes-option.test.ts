@@ -1,7 +1,7 @@
 import WISLWebpackTestCompiler from "./helpers/WISLWebpackTestCompiler";
 
 describe.each([4, 5] as const)('v%d "sizes" option', (webpackVersion) => {
-  test("should work with empty array", async () => {
+  it("should work with empty array", async () => {
     const compiler = new WISLWebpackTestCompiler({ webpackVersion });
     const bundle = await compiler.compile({
       loaderOptions: {
@@ -12,7 +12,7 @@ describe.each([4, 5] as const)('v%d "sizes" option', (webpackVersion) => {
     expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 
-  test("should work with [null]", async () => {
+  it("should work with [null]", async () => {
     const compiler = new WISLWebpackTestCompiler({ webpackVersion });
     const bundle = await compiler.compile({
       loaderOptions: {
@@ -23,7 +23,7 @@ describe.each([4, 5] as const)('v%d "sizes" option', (webpackVersion) => {
     expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 
-  test('should work with ["300w"]', async () => {
+  it('should work with ["300w"]', async () => {
     const compiler = new WISLWebpackTestCompiler({ webpackVersion });
     const bundle = await compiler.compile({
       loaderOptions: {
@@ -34,7 +34,7 @@ describe.each([4, 5] as const)('v%d "sizes" option', (webpackVersion) => {
     expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 
-  test('should work with ["2x"]', async () => {
+  it('should work with ["2x"]', async () => {
     const compiler = new WISLWebpackTestCompiler({ webpackVersion });
     const bundle = await compiler.compile({
       loaderOptions: {
@@ -45,7 +45,7 @@ describe.each([4, 5] as const)('v%d "sizes" option', (webpackVersion) => {
     expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 
-  test('should work with ["1x", "2x"]', async () => {
+  it('should work with ["1x", "2x"]', async () => {
     const compiler = new WISLWebpackTestCompiler({ webpackVersion });
     const bundle = await compiler.compile({
       loaderOptions: {
@@ -56,7 +56,7 @@ describe.each([4, 5] as const)('v%d "sizes" option', (webpackVersion) => {
     expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 
-  test('should work with ["1x", "300w", null, "2x"]', async () => {
+  it('should work with ["1x", "300w", null, "2x"]', async () => {
     const compiler = new WISLWebpackTestCompiler({ webpackVersion });
     const bundle = await compiler.compile({
       loaderOptions: {

@@ -3,7 +3,7 @@ import WISLWebpackTestCompiler from "./helpers/WISLWebpackTestCompiler";
 describe.each([4, 5] as const)(
   'v%d "customOptionsFactory" option',
   (webpackVersion) => {
-    test("should work with a function", async () => {
+    it("should work with a function", async () => {
       const mockCustomOptionsFactory = jest.fn().mockReturnValue({
         fileLoaderOptions: {
           esModule: false,
