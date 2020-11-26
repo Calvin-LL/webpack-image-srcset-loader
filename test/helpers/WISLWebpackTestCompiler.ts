@@ -38,7 +38,7 @@ export default class WISLWebpackTestCompiler extends WebpackTestCompiler {
                         __dirname,
                         "..",
                         "..",
-                        "dist",
+                        "test-dist",
                         "cjs.js"
                       ),
                       options: loaderOptions,
@@ -58,7 +58,13 @@ export default class WISLWebpackTestCompiler extends WebpackTestCompiler {
               test: /\.(png|jpg|svg)/i,
               use: [
                 {
-                  loader: path.resolve(__dirname, "..", "..", "dist", "cjs.js"),
+                  loader: path.resolve(
+                    __dirname,
+                    "..",
+                    "..",
+                    "test-dist",
+                    "cjs.js"
+                  ),
                   options: loaderOptions,
                 },
                 {
