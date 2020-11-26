@@ -1,24 +1,28 @@
 import JSON5 from "json5";
-import loaderUtils from "loader-utils";
 import { validate } from "schema-utils";
 import { Schema } from "schema-utils/declarations/validate";
 import sharp from "sharp";
 import { InputFileSystem, loader } from "webpack";
 
+import { getOptions } from "@calvin-l/webpack-loader-util";
+
 import { getMaxDensity, getOptionFromSize } from "./helpers/sizes";
 import { validateSizes } from "./helpers/validation";
 import schema from "./options.json";
 
-export interface OPTIONS {
-  sizes: (string | null)[];
-  scaleUp: boolean;
-  customOptionsFactory?: (
+export interface Options {
+  readonly sizes?: (string | null)[];
+  readonly scaleUp?: boolean;
+  readonly customOptionsFactory?: (
     width: number | undefined,
     scale: number | undefined,
-    existingOptions: Record<string, unknown> | undefined
+    existingOptions: Record<string, any> | undefined
   ) => string;
-  esModule: boolean;
+  readonly esModule?: boolean;
 }
+
+export type FullOptions = Options &
+  Required<Pick<Options, "sizes" | "scaleUp" | "esModule">>;
 
 export const raw = true;
 
@@ -26,43 +30,43 @@ export function pitch(
   this: loader.LoaderContext,
   remainingRequest: string
 ): void {
-  const callback = this.async();
-  const options = loaderUtils.getOptions(this) as Partial<OPTIONS> | null;
-  const queryObject = this.resourceQuery
-    ? (loaderUtils.parseQuery(this.resourceQuery) as Partial<OPTIONS>)
-    : {};
-  const fullOptions = ({
-    ...options,
-    ...queryObject,
-  } as unknown) as OPTIONS;
+  const callback = this.async() as loader.loaderCallback;
+  const defaultOptions: FullOptions = {
+    // @ts-expect-error setting sizes as undefined and let validate throw error if it doesn't exist
+    sizes: undefined,
+    scaleUp: false,
+    esModule: true,
+  };
+  const options: FullOptions = {
+    ...defaultOptions,
+    ...getOptions<Options>(this),
+  };
 
-  validate(schema as Schema, fullOptions, {
+  validate(schema as Schema, options, {
     name: "Image SrcSet Loader",
     baseDataPath: "options",
   });
 
-  validateSizes(fullOptions.sizes);
-
-  const esModule = fullOptions.esModule ?? true;
+  validateSizes(options.sizes);
 
   generateSrcSetString(
     remainingRequest,
     this.loaders,
     this.loaderIndex,
-    fullOptions,
+    options,
     this.fs,
     this.resourcePath
   )
     .then((srcSetString) => {
-      callback?.(
+      callback(
         null,
         `${
-          esModule ? "export default" : "module.exports ="
+          options.esModule ? "export default" : "module.exports ="
         }  \`${srcSetString}\`;`
       );
     })
     .catch((e) => {
-      callback?.(e);
+      throw e;
     });
 }
 
@@ -74,7 +78,7 @@ async function generateSrcSetString(
   remainingRequest: string,
   loaders: any[],
   loaderIndex: number,
-  options: OPTIONS,
+  options: FullOptions,
   fs: InputFileSystem,
   resourcePath: string
 ): Promise<string> {
@@ -130,7 +134,7 @@ function addOptionsToResizeLoader(
   loaders: any[],
   loaderIndex: number,
   options: { width?: number; scale?: number },
-  customOptionsFactory: OPTIONS["customOptionsFactory"]
+  customOptionsFactory: FullOptions["customOptionsFactory"]
 ): string {
   const nextLoader = loaders[loaderIndex + 1];
   const isNextLoaderQueryLoader = getIsLoaderQueryLoader(nextLoader);
