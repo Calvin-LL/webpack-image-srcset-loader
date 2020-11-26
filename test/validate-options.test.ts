@@ -32,7 +32,7 @@ describe.each([4, 5] as const)("v%d validate options", (webpackVersion) => {
     } the "${key}" option with ${JSON.stringify(value)} value`, async () => {
       const compiler = new WISLWebpackTestCompiler({ webpackVersion });
 
-      let stats;
+      let stats: webpack.Stats | undefined;
 
       try {
         stats = (
@@ -46,14 +46,12 @@ describe.each([4, 5] as const)("v%d validate options", (webpackVersion) => {
         ).stats;
       } finally {
         if (type === "success") {
-          expect((stats as webpack.Stats).hasErrors()).toBe(false);
+          expect(stats!.hasErrors()).toBe(false);
         } else if (type === "failure") {
-          const errors = (stats as webpack.Stats).compilation.errors;
+          const errors = stats!.compilation.errors;
 
           expect(errors).toHaveLength(1);
-          expect(() => {
-            throw new Error(errors[0].error.message);
-          }).toThrowErrorMatchingSnapshot();
+          expect(errors[0].error.message).toMatchSnapshot();
         }
       }
     }, 60000);
