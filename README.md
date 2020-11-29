@@ -4,136 +4,82 @@
 
 This loader generates a srcset string from an image.
 
-## Example
+## Examples
 
-```javascript
-import jpg from "./some_pic.jpg?srcset&sizes[]=500w&sizes[]=1000w&sizes[]=1500w";
+[React](https://github.com/Calvin-LL/webpack-image-srcset-loader/tree/master/examples/react)
 
-console.log(jpg);
-// outputs: "44aacd9d8d250c420d100a3fb0f1debe.jpg 500w, 5a35cdf3268c47471b8e96b656a23200.jpg 1000w, fdaf70a107ad3cebfaf1e03ff0601c1c.jpg 1500w"
-```
+[Vue](https://github.com/Calvin-LL/webpack-image-srcset-loader/tree/master/examples/vue)
 
 ## Install
 
 Install with npm:
 
 ```bash
-npm install webpack-image-srcset-loader webpack-image-resize-loader --save-dev
+npm install --save-dev webpack-image-srcset-loader webpack-image-resize-loader
 ```
 
 Install with yarn:
 
 ```bash
-yarn add webpack-image-srcset-loader webpack-image-resize-loader --dev
+yarn add --dev webpack-image-srcset-loader webpack-image-resize-loader
 ```
 
 ## Usage
 
-### Use with [webpack-query-loader](https://github.com/Calvin-LL/webpack-query-loader)
-
-Use [webpack-query-loader](https://github.com/Calvin-LL/webpack-query-loader) if you only want some import of images to be in the srcset format
-
 ```javascript
-import jpg from "./some_pic.jpg?srcset";
-```
+import jpgSrcSet from "./some_pic.jpg?srcset";
 
-note:
-You can override the `sizes` in options by
-
-```javascript
-import jpg from "./some_pic.jpg?srcset&sizes[]=1x&sizes[]=2x&sizes[]=3x";
-```
-
-Install with npm:
-
-```bash
-npm install webpack-query-loader --save-dev
-```
-
-Install with yarn:
-
-```bash
-yarn add webpack-query-loader --dev
+// jpgSrcSet will be "97[...]7.jpg 500w, ed[...]3.jpg 1000w, c6[...]b.jpg 1500w, 57[...]e.jpg"
 ```
 
 #### webpack.config.js
 
 ```javascript
 module.exports = {
-  ...
+  // ...
   module: {
     rules: [
+      // ...
       {
-        test: /\.(png|jpe?g)/i,
-        use: [
+        test: /\.(png|jpe?g|svg|gif|webp|tiff?)$/i,
+        oneOf: [
           {
-            loader: "webpack-query-loader",
-            options: {
-              resourceQuery: "srcset", // run only if the url query has "srcset"
-              use: {
+            // if the import url looks like "some.png?srcset..."
+            resourceQuery: /srcset/,
+            use: [
+              {
                 loader: "webpack-image-srcset-loader",
                 options: {
                   sizes: ["500w", "1000w", "1500w", null],
                 },
               },
-            },
+              "webpack-image-resize-loader",
+            ],
           },
           {
-            loader: "webpack-query-loader",
-            options: {
-              resourceQuery: "srcset", // run only if the url query has "srcset"
-              use: "webpack-image-resize-loader",
-            },
-          },
-          {
-            loader: "webpack-query-loader",
-            options: {
-              resourceQuery: "!srcset",
-              use: "file-loader", // use "file-loader" when the url query does not have "srcset"
-            },
+            // if no previous resourceQuery match
+            use: "file-loader",
           },
         ],
       },
     ],
   },
 };
-
-```
-
-### Use without [webpack-query-loader](https://github.com/Calvin-LL/webpack-query-loader)
-
-All image imports will be in the srcset format
-
-```javascript
-import jpg from "./some_pic.jpg";
-```
-
-#### webpack.config.js
-
-```javascript
-module.exports = {
-  ...
-  module: {
-    rules: [
-      {
-        test: /\.(png|jpe?g)/i,
-        use: [
-          {
-            loader: "webpack-image-srcset-loader",
-            options: {
-              sizes: ["500w", "1000w", "1500w", null],
-            },
-          },
-          "webpack-image-resize-loader",
-        ],
-      },
-    ],
-  },
-};
-
 ```
 
 ## Options
+
+#### Note:
+
+Additional options such as `quality` here will be passed down to [webpack-image-resize-loader](https://github.com/Calvin-LL/webpack-image-resize-loader). See [webpack-image-resize-loader's options](https://github.com/Calvin-LL/webpack-image-resize-loader#options).
+
+For example:
+
+```javascript
+import webpSrcSet from "./some_pic.jpg?srcset&format=webp";
+
+// webpSrcSet will be "00[...]5.webp 500w, 40[...]3.webp 1000w, 76[...]b.webp 1500w, b1[...]c.webp"
+```
 
 | Name                                                | Type               | Default   | Description                                                                                  |
 | --------------------------------------------------- | ------------------ | --------- | -------------------------------------------------------------------------------------------- |
