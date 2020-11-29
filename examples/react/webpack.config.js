@@ -22,6 +22,7 @@ module.exports = {
         test: /\.(png|jpe?g|svg|gif|webp|tiff?)$/i,
         oneOf: [
           {
+            // if the import url looks like "some.png?srcset..."
             resourceQuery: /srcset/,
             use: [
               {
@@ -34,6 +35,7 @@ module.exports = {
             ],
           },
           {
+            // if no previous resourceQuery match
             use: "file-loader",
           },
         ],
