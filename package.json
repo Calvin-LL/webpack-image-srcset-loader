@@ -75,7 +75,6 @@
     "typescript": "^4.1.2",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.2",
-    "webpack-image-resize-loader": "^3.0.5",
-    "webpack-query-loader": "^2.0.5"
+    "webpack-image-resize-loader": "^3.0.5"
   }
 }
