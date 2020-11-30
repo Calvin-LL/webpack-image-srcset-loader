@@ -6,9 +6,9 @@ This loader generates a srcset string from an image.
 
 ## Examples
 
-[React](https://github.com/Calvin-LL/webpack-image-srcset-loader/tree/master/examples/react)
+[React](https://github.com/Calvin-LL/webpack-image-srcset-loader/tree/main/examples/react)
 
-[Vue](https://github.com/Calvin-LL/webpack-image-srcset-loader/tree/master/examples/vue)
+[Vue](https://github.com/Calvin-LL/webpack-image-srcset-loader/tree/main/examples/vue)
 
 [React example with other related loaders](https://github.com/Calvin-LL/react-responsive-images-example)
 
