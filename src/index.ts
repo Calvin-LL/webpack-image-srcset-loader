@@ -6,8 +6,10 @@ import { InputFileSystem, loader } from "webpack";
 
 import { getOptions } from "@calvin-l/webpack-loader-util";
 
-import { getMaxDensity, getOptionFromSize } from "./helpers/sizes";
-import { validateSizes } from "./helpers/validation";
+import getMaxDensity from "./helpers/getMaxDensity";
+import getOptionFromSize from "./helpers/getOptionFromSize";
+import normalizeQueryLoaderOptions from "./helpers/normalizeQueryLoaderOptions";
+import validateSizes from "./helpers/validateSizes";
 import schema from "./options.json";
 
 export interface Options {
@@ -202,18 +204,6 @@ function addOptionsToResizeLoader(
         })
       )
   );
-}
-
-function normalizeQueryLoaderOptions(
-  options: any
-): { use: { loader: string; options?: any } } {
-  if (typeof options.use === "string")
-    return {
-      ...options,
-      use: { loader: options.use },
-    };
-
-  return options;
 }
 
 function getIsLoaderQueryLoader(nextLoader: any): boolean {
