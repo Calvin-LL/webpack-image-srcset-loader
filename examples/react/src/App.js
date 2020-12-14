@@ -1,8 +1,8 @@
 import React from "react";
 
 import image from "./assets/Macaca_nigra_self-portrait_large.jpg";
-import imageSrcSetWebp from "./assets/Macaca_nigra_self-portrait_large.jpg?srcset&format=webp&quality=100";
-import imageSrcSet from "./assets/Macaca_nigra_self-portrait_large.jpg?srcset&quality=100";
+import imageSrcSetWebp from "./assets/Macaca_nigra_self-portrait_large.jpg?srcset&format=webp&quality=90";
+import imageSrcSet from "./assets/Macaca_nigra_self-portrait_large.jpg?srcset&quality=90";
 
 function App() {
   return (

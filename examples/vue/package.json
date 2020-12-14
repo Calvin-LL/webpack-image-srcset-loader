@@ -3,17 +3,18 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "core-js": "^3.8.1",
+    "vue": "^3.0.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "webpack-image-resize-loader": "^3.0.6",
+    "@vue/compiler-sfc": "^3.0.4",
+    "webpack-image-resize-loader": "^3.1.0",
     "webpack-image-srcset-loader": "^3.0.2"
   }
 }

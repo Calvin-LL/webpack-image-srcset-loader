@@ -7,10 +7,6 @@ module.exports = {
     path: path.resolve(__dirname, "./build"),
     filename: "main.js",
   },
-  // to hide performance hints on compile, do not add this to your code
-  performance: {
-    hints: false,
-  },
   module: {
     rules: [
       {
@@ -28,7 +24,7 @@ module.exports = {
               {
                 loader: "webpack-image-srcset-loader",
                 options: {
-                  sizes: ["500w", "1000w", "1500w", null],
+                  sizes: ["480w", "1024w", "1920w", "2560w", null],
                 },
               },
               "webpack-image-resize-loader",

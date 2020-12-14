@@ -10,15 +10,15 @@
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/preset-env": "^7.12.7",
-    "@babel/preset-react": "^7.12.7",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "@babel/preset-react": "^7.12.10",
     "babel-loader": "^8.2.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
-    "webpack": "^5.8.0",
+    "webpack": "^5.10.1",
     "webpack-cli": "^4.2.0",
-    "webpack-image-resize-loader": "^3.0.6",
+    "webpack-image-resize-loader": "^3.1.0",
     "webpack-image-srcset-loader": "^3.0.2"
   }
 }
