@@ -28,18 +28,6 @@ Install with yarn:
 yarn add --dev webpack-image-srcset-loader webpack-image-resize-loader
 ```
 
-#### For better optimized images with [webpack-image-resize-loader](https://github.com/Calvin-LL/webpack-image-resize-loader) (optional)
-
-Install [libvips](https://github.com/libvips/libvips) with its optional dependencies
-
-On macOS with homebrew:
-
-```
-brew install vips
-```
-
-Other OSs: [install libvips](https://libvips.github.io/libvips/install.html)
-
 ## Usage
 
 ```javascript
