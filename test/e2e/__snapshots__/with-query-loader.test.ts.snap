@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`use with webpack-query-loader: result 1`] = `"fe14ecfa6e9cef9040cc28fed5958c27.jpg 1x, 76ab12b37821a8c18371948d1be1b6c1.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg, bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x"`;
+
+exports[`use with webpack-query-loader: result 2`] = `"fe14ecfa6e9cef9040cc28fed5958c27.jpg 1x, 76ab12b37821a8c18371948d1be1b6c1.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg, bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x"`;
