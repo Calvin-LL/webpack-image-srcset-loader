@@ -1,4 +1,3 @@
-import JSON5 from "json5";
 import { validate } from "schema-utils";
 import { Schema } from "schema-utils/declarations/validate";
 import sharp from "sharp";
@@ -90,8 +89,8 @@ async function generateSrcSetString(
   const sizes = options.sizes;
   const maxDensity = getMaxDensity(sizes);
   const separator = ", ";
-  const requireStart = '${require("-!';
-  const requireEnd = '")}';
+  const requireStart = "${require('-!";
+  const requireEnd = "')}";
 
   for (const size of sizes) {
     if (!size) {
@@ -151,7 +150,7 @@ function addOptionsToResizeLoader(
       resizeLoaderPath +
         "?" +
         escapeJsonStringForLoader(
-          JSON5.stringify(
+          JSON.stringify(
             customOptionsFactory(
               options.width,
               options.scale,
@@ -169,7 +168,7 @@ function addOptionsToResizeLoader(
       resizeLoaderPath +
         "?" +
         escapeJsonStringForLoader(
-          JSON5.stringify({
+          JSON.stringify({
             ...queryLoaderOptions,
             use: {
               loader: queryLoaderOptions.use.loader,
@@ -193,7 +192,7 @@ function addOptionsToResizeLoader(
     resizeLoaderPath +
       "?" +
       escapeJsonStringForLoader(
-        JSON5.stringify({
+        JSON.stringify({
           scaleUp: true,
           ...resizeLoaderOptions,
           ...options,
@@ -215,6 +214,7 @@ function getIsLoaderQueryLoader(nextLoader: any): boolean {
   return false;
 }
 
+// needed so webpack doesn't mistake "!" for query operator "!"
 function escapeJsonStringForLoader(s: string): string {
   return s.replace(/!/g, "\\\\x21");
 }
