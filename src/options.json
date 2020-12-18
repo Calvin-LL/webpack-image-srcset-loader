@@ -7,14 +7,7 @@
       "description": "Sizes in the output srcset.",
       "type": "array",
       "items": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
+        "type": "string"
       }
     },
     "scaleUp": {

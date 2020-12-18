@@ -13,7 +13,7 @@ describe.each([4, 5] as const)(
       const compiler = new WISLWebpackTestCompiler({ webpackVersion });
       const bundle = await compiler.compile({
         loaderOptions: {
-          sizes: ["2x", null, "1x", "300w"],
+          sizes: ["2x", "original", "1x", "300w"],
           customOptionsFactory: (
             width: number | undefined,
             scale: number | undefined,

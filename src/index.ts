@@ -12,7 +12,9 @@ import validateSizes from "./helpers/validateSizes";
 import schema from "./options.json";
 
 export interface Options {
-  readonly sizes?: (string | null)[];
+  // Waiting for typescript 4.2.0 to fix https://github.com/microsoft/TypeScript/issues/41651
+  // readonly sizes?: (`${number}w` | `${number}x` | "original")[];
+  readonly sizes?: string[];
   readonly scaleUp?: boolean;
   readonly customOptionsFactory?: (
     width: number | undefined,
@@ -44,7 +46,7 @@ export function pitch(
   };
 
   validate(schema as Schema, options, {
-    name: "Image SrcSet Loader",
+    name: "webpack-image-srcset-loader",
     baseDataPath: "options",
   });
 
@@ -93,7 +95,7 @@ async function generateSrcSetString(
   const requireEnd = "')}";
 
   for (const size of sizes) {
-    if (!size) {
+    if (size === "original") {
       result += `${requireStart}${addOptionsToResizeLoader(
         remainingRequest,
         loaders,

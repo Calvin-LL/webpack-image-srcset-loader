@@ -10,7 +10,7 @@ module.exports = {
       .use("srcset")
       .loader("webpack-image-srcset-loader")
       .options({
-        sizes: ["480w", "1024w", "1920w", "2560w", null],
+        sizes: ["480w", "1024w", "1920w", "2560w", "original"],
         esModule: false,
       })
       .end()

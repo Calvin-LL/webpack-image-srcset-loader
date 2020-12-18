@@ -1,11 +1,11 @@
 import validateSizes from "../../src/helpers/validateSizes";
 
-it("should validate [null]", () => {
-  expect(validateSizes([null])).toBeUndefined();
+it('should validate ["original"]', () => {
+  expect(validateSizes(["original"])).toBeUndefined();
 });
 
-it('should validate [null, "2x", "200w"]', () => {
-  expect(validateSizes([null, "2x", "200w"])).toBeUndefined();
+it('should validate ["original", "2x", "200w"]', () => {
+  expect(validateSizes(["original", "2x", "200w"])).toBeUndefined();
 });
 
 it("should not validate decimal", () => {

@@ -5,9 +5,9 @@ export default function validateSizes(sizes: FullOptions["sizes"]): void {
 
   if (
     !sizes.every(
-      (size) => size === null || size.match(sizeValueValidationRegex)
+      (size) => size === "original" || size.match(sizeValueValidationRegex)
     )
   )
-    throw `Invalid options object. Image SrcSet Loader has been initialised using an options object that does not match the API schema.
+    throw `Invalid options object. webpack-image-srcset-loader has been initialised using an options object that does not match the API schema.
       - options.sizes ${JSON.stringify(sizes)} is not a valid value.`;
 }

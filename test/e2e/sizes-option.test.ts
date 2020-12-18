@@ -12,11 +12,11 @@ describe.each([4, 5] as const)('v%d "sizes" option', (webpackVersion) => {
     expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 
-  it("should work with [null]", async () => {
+  it('should work with ["original"]', async () => {
     const compiler = new WISLWebpackTestCompiler({ webpackVersion });
     const bundle = await compiler.compile({
       loaderOptions: {
-        sizes: [null],
+        sizes: ["original"],
       },
     });
 
@@ -56,11 +56,11 @@ describe.each([4, 5] as const)('v%d "sizes" option', (webpackVersion) => {
     expect(bundle.execute("main.js")).toMatchSnapshot("result");
   });
 
-  it('should work with ["1x", "300w", null, "2x"]', async () => {
+  it('should work with ["1x", "300w", "original", "2x"]', async () => {
     const compiler = new WISLWebpackTestCompiler({ webpackVersion });
     const bundle = await compiler.compile({
       loaderOptions: {
-        sizes: ["1x", "300w", null, "2x"],
+        sizes: ["1x", "300w", "original", "2x"],
       },
     });
 

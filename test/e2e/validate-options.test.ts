@@ -5,8 +5,8 @@ import WISLWebpackTestCompiler from "./helpers/WISLWebpackTestCompiler";
 describe.each([4, 5] as const)("v%d validate options", (webpackVersion) => {
   const tests = {
     sizes: {
-      success: [["10w", "1x", "2x", null]],
-      failure: [["10.0w"], ["10h"], ["0.5x"], ["0.5"], ["10"], [3]],
+      success: [["10w", "1x", "2x", "original"]],
+      failure: [["10.0w"], ["10h"], ["0.5x"], ["0.5"], ["10"], [3], [null]],
     },
     scaleUp: {
       success: [true, false],
@@ -38,7 +38,7 @@ describe.each([4, 5] as const)("v%d validate options", (webpackVersion) => {
         stats = (
           await compiler.compile({
             loaderOptions: {
-              sizes: [null],
+              sizes: ["original"],
               [key]: value,
             },
             throwOnError: false,

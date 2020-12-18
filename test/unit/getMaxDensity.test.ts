@@ -12,10 +12,10 @@ it('should work with ["1x", "2x", "100w"]', () => {
   expect(getMaxDensity(["1x", "2x", "100w"])).toBe(2);
 });
 
-it('should work with ["1x", "2x", null]', () => {
-  expect(getMaxDensity(["1x", "2x", null])).toBe(2);
+it('should work with ["1x", "2x", "original"]', () => {
+  expect(getMaxDensity(["1x", "2x", "original"])).toBe(2);
 });
 
-it('should work with ["100w", "200w", null]', () => {
-  expect(getMaxDensity(["100w", "200w", null])).toBe(undefined);
+it('should work with ["100w", "200w", "original"]', () => {
+  expect(getMaxDensity(["100w", "200w", "original"])).toBe(undefined);
 });

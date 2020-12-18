@@ -7,7 +7,7 @@ export default function getOptionFromSize(
   width?: number;
   scale?: number;
 } {
-  if (!size) return {};
+  if (size === "original") return {};
 
   const sizeWidthValueRegex = /^(\d+)(w)$/; // match more tha none digit followed by w
   const sizeDensityValueRegex = /^(\d+)(x)$/; // match more tha none digit followed by x

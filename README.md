@@ -54,7 +54,7 @@ module.exports = {
               {
                 loader: "webpack-image-srcset-loader",
                 options: {
-                  sizes: ["500w", "1000w", "1500w", null],
+                  sizes: ["480w", "1024w", "1920w", "2560w", "original"],
                 },
               },
               "webpack-image-resize-loader",
@@ -85,18 +85,18 @@ import webpSrcSet from "./some_pic.jpg?srcset&format=webp";
 // webpSrcSet will be "00[...]5.webp 500w, 40[...]3.webp 1000w, 76[...]b.webp 1500w, b1[...]c.webp"
 ```
 
-| Name                                                | Type               | Default   | Description                                                                                  |
-| --------------------------------------------------- | ------------------ | --------- | -------------------------------------------------------------------------------------------- |
-| **[`sizes`](#sizes)**                               | `(string\|null)[]` | undefined | Sizes in the output srcset.                                                                  |
-| **[`scaleUp`](#scaleup)**                           | `boolean`          | `false`   | Whether or not to scale up the image when the desired width is greater than the image width. |
-| **[`customOptionsFactory`](#customoptionsfactory)** | `function`         | undefined | A function that returns the option to be passed on to the next loader.                       |
-| **[`esModule`](#esmodule)**                         | `boolean`          | `true`    | Whether the export is in ES modules syntax or CommonJS modules syntax                        |
+| Name                                                | Type         | Default   | Description                                                                                  |
+| --------------------------------------------------- | ------------ | --------- | -------------------------------------------------------------------------------------------- |
+| **[`sizes`](#sizes)**                               | `(string)[]` | undefined | Sizes in the output srcset.                                                                  |
+| **[`scaleUp`](#scaleup)**                           | `boolean`    | `false`   | Whether or not to scale up the image when the desired width is greater than the image width. |
+| **[`customOptionsFactory`](#customoptionsfactory)** | `function`   | undefined | A function that returns the option to be passed on to the next loader.                       |
+| **[`esModule`](#esmodule)**                         | `boolean`    | `true`    | Whether the export is in ES modules syntax or CommonJS modules syntax                        |
 
 ### `sizes`
 
-An array containing strings in the format `"[number]w"`, `"[number]x"`, or `null`. The numbers cannot contain decimals.
+An array containing strings in the format `"[number]w"`, `"[number]x"`, or `"original"`. The numbers cannot contain decimals.
 
-Allowed: `["10w", "1x", "2x", null]`
+Allowed: `["10w", "1x", "2x", "original"]`
 
 Not allowed: `["10.0w", "1.5x", "2.0x"]`
 
@@ -106,7 +106,7 @@ When using `"[number]x"`, the original size of the image will be used for the gr
 
 When true, if the desired width is greater than the image width, the size will not be included in the output srcset string. For example, if the original image is `10×10` in size, and the `sizes` array is `["5w", "10w", "15w"]`, when `scaleUp` is `true` the output string is `"image1.jpg 5w, image2.jpg 10w, image3.jpg 15w"`, when `scaleUp` is `false` the output string is `"image1.jpg 5w, image2.jpg 10w"`.
 
-Note: this option has no effect on `"[number]x"` or `null`
+Note: this option has no effect on `"[number]x"` or `"original"`
 
 ### `customOptionsFactory`
 
@@ -122,12 +122,12 @@ If you wish to use a resize loader other than [webpack-image-resize-loader](http
 }
 ```
 
-For example, if `sizes` is `["10w", "1x", "2x", null]`, `customOptionsFactory` will be called with
+For example, if `sizes` is `["10w", "1x", "2x", "original"]`, `customOptionsFactory` will be called with
 
 - `customOptionsFactory(10, undefined, existingOptions)` for `10w`
 - `customOptionsFactory(undefined, 1, existingOptions)` for `1x`
 - `customOptionsFactory(undefined, 2, existingOptions)` for `2x`
-- `customOptionsFactory(undefined, undefined, existingOptions)` for `null`
+- `customOptionsFactory(undefined, undefined, existingOptions)` for `"original"`
 
 ### `esModule`
 

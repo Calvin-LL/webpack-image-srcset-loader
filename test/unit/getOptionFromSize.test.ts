@@ -1,7 +1,7 @@
 import getOptionFromSize from "../../src/helpers/getOptionFromSize";
 
-it("should work with null, 1", () => {
-  expect(getOptionFromSize(null, 1)).toMatchObject({});
+it('should work with "original", 1', () => {
+  expect(getOptionFromSize("original", 1)).toMatchObject({});
 });
 
 it('should work with "1x", 3', () => {
