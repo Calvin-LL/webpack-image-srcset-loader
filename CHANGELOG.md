@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/Calvin-LL/webpack-image-srcset-loader/compare/v3.0.3...v4.0.0) (2020-12-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* null is no longer allowed as a size, replaced by `"original"`
+
+### Features
+
+* null is no longer allowed as a size, replaced by `"original"` ([f1c1049](https://github.com/Calvin-LL/webpack-image-srcset-loader/commit/f1c10498093c0fd6ae3594002a0b0dafa7dbc535))
+
 ### [3.0.3](https://github.com/Calvin-LL/webpack-image-srcset-loader/compare/v3.0.2...v3.0.3) (2020-12-14)
 
 ### [3.0.2](https://github.com/Calvin-LL/webpack-image-srcset-loader/compare/v3.0.1...v3.0.2) (2020-11-29)
