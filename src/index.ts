@@ -1,3 +1,4 @@
+import { parseQuery } from "loader-utils";
 import { validate } from "schema-utils";
 import { Schema } from "schema-utils/declarations/validate";
 import sharp from "sharp";
@@ -142,7 +143,10 @@ function addOptionsToResizeLoader(
   const nextLoader = loaders[loaderIndex + 1];
   const isNextLoaderQueryLoader = getIsLoaderQueryLoader(nextLoader);
 
-  const resizeLoaderOptions = nextLoader.options;
+  const resizeLoaderOptions =
+    typeof nextLoader.options === "string"
+      ? parseQuery("?" + nextLoader.options)
+      : nextLoader.options;
   const resizeLoaderRequest = nextLoader.request;
   const resizeLoaderPath = nextLoader.path;
 

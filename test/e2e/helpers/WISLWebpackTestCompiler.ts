@@ -9,6 +9,7 @@ import {
 interface WISLCompileOptions extends Omit<CompileOptions, "entryFilePath"> {
   entryFileName?: string;
   loaderOptions?: any;
+  resizeLoaderOptions?: any;
   useQueryLoader?: boolean;
 }
 
@@ -16,6 +17,7 @@ export default class WISLWebpackTestCompiler extends WebpackTestCompiler {
   compile(options: WISLCompileOptions = {}): Promise<WebpackTestBundle> {
     const {
       loaderOptions = {},
+      resizeLoaderOptions,
       entryFileName = "index.js",
       useQueryLoader = false,
     } = options;
@@ -27,7 +29,7 @@ export default class WISLWebpackTestCompiler extends WebpackTestCompiler {
       rules: [
         useQueryLoader
           ? {
-              test: /\.(png|jpg|svg)/i,
+              test: /\.(png|jpg|svg)$/i,
               use: [
                 {
                   loader: "webpack-query-loader",
@@ -52,7 +54,7 @@ export default class WISLWebpackTestCompiler extends WebpackTestCompiler {
               ],
             }
           : {
-              test: /\.(png|jpg|svg)/i,
+              test: /\.(png|jpg|svg)$/i,
               use: [
                 {
                   loader: path.resolve(__dirname, "../../../test-dist/cjs.js"),
@@ -60,6 +62,7 @@ export default class WISLWebpackTestCompiler extends WebpackTestCompiler {
                 },
                 {
                   loader: "webpack-image-resize-loader",
+                  options: resizeLoaderOptions,
                 },
               ],
             },

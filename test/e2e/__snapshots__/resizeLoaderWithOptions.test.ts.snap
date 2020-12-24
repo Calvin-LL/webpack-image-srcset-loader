@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`v4 resize loader with options should work with options in query: result 1`] = `
+Object {
+  "default": "76ab12b37821a8c18371948d1be1b6c1.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg",
+}
+`;
+
+exports[`v4 resize loader with options should work with options in webpackConfig: result 1`] = `"76ab12b37821a8c18371948d1be1b6c1.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg"`;
+
+exports[`v5 resize loader with options should work with options in query: result 1`] = `
+Object {
+  "default": "76ab12b37821a8c18371948d1be1b6c1.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg",
+}
+`;
+
+exports[`v5 resize loader with options should work with options in webpackConfig: result 1`] = `"76ab12b37821a8c18371948d1be1b6c1.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg"`;

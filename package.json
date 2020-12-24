@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@calvin-l/webpack-loader-util": "^1.0.2",
+    "loader-utils": "^2.0.0",
     "schema-utils": "^3.0.0",
     "sharp": "^0.26.3"
   },
