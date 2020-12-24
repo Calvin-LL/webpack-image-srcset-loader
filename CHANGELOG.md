@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/Calvin-LL/webpack-image-srcset-loader/compare/v4.0.0...v4.0.1) (2020-12-24)
+
+
+### Bug Fixes
+
+* inline loader options not being parsed correctly ([7ed891c](https://github.com/Calvin-LL/webpack-image-srcset-loader/commit/7ed891c04355f1346001e45000b631ab56b177a1))
+
 ## [4.0.0](https://github.com/Calvin-LL/webpack-image-srcset-loader/compare/v3.0.3...v4.0.0) (2020-12-18)
 
 
