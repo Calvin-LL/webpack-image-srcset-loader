@@ -33,7 +33,7 @@ yarn add --dev webpack-image-srcset-loader webpack-image-resize-loader
 ```javascript
 import jpgSrcSet from "./some_pic.jpg?srcset";
 
-// jpgSrcSet will be "97[...]7.jpg 500w, ed[...]3.jpg 1000w, c6[...]b.jpg 1500w, 57[...]e.jpg"
+// jpgSrcSet will be "97[...]7.jpg 480w, ed[...]3.jpg 1024w, c6[...]b.jpg 1920w, b6[...]3.jpg 2560w, 57[...]e.jpg"
 ```
 
 #### webpack.config.js
@@ -82,7 +82,7 @@ For example:
 ```javascript
 import webpSrcSet from "./some_pic.jpg?srcset&format=webp";
 
-// webpSrcSet will be "00[...]5.webp 500w, 40[...]3.webp 1000w, 76[...]b.webp 1500w, b1[...]c.webp"
+// webpSrcSet will be "00[...]5.webp 480w, 40[...]3.webp 1024w, 76[...]b.webp 1920w, a4[...]c.webp 2560w, b1[...]c.webp"
 ```
 
 | Name                                                | Type         | Default   | Description                                                                                  |
