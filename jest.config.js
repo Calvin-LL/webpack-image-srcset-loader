@@ -7,6 +7,7 @@ module.exports = {
   },
   testMatch: ["<rootDir>/test/**/*.test.ts"],
   testEnvironment: "node",
+  testTimeout: 600000,
   snapshotSerializers: ["<rootDir>/test/snapshotSerializers.js"],
   collectCoverage: true,
   coveragePathIgnorePatterns: ["<rootDir>/test/", "<rootDir>/node_modules/"],
