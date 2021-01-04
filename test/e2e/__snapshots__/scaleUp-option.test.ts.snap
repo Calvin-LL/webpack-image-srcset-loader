@@ -4,10 +4,10 @@ exports[`v4 "scaleUp" option should not skip original size: result 1`] = `"bd2b9
 
 exports[`v4 "scaleUp" option should skip greater size: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpg 1x"`;
 
-exports[`v4 "scaleUp" option should work with true: result 1`] = `"f3842089b9ffdd728039909573b7b7f5.jpg 2913w"`;
+exports[`v4 "scaleUp" option should work with true: result 1`] = `"b9b3e9233f4da1756d2ea6b68b751583.jpg 2913w"`;
 
 exports[`v5 "scaleUp" option should not skip original size: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpg 2912w"`;
 
 exports[`v5 "scaleUp" option should skip greater size: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpg 1x"`;
 
-exports[`v5 "scaleUp" option should work with true: result 1`] = `"f3842089b9ffdd728039909573b7b7f5.jpg 2913w"`;
+exports[`v5 "scaleUp" option should work with true: result 1`] = `"b9b3e9233f4da1756d2ea6b68b751583.jpg 2913w"`;

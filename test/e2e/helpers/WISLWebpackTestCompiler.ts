@@ -1,20 +1,22 @@
 import path from "path";
 
 import {
-  CompileOptions,
   WebpackTestBundle,
   WebpackTestCompiler,
 } from "@calvin-l/webpack-loader-test-util";
 
-interface WISLCompileOptions extends Omit<CompileOptions, "entryFilePath"> {
+interface WISLCompileOptions
+  extends Omit<WebpackTestCompiler.CompileOptions, "entryFilePath"> {
   entryFileName?: string;
   loaderOptions?: any;
   resizeLoaderOptions?: any;
   useQueryLoader?: boolean;
 }
 
-export default class WISLWebpackTestCompiler extends WebpackTestCompiler {
-  compile(options: WISLCompileOptions = {}): Promise<WebpackTestBundle> {
+export default class WISLWebpackTestCompiler extends WebpackTestCompiler.default {
+  compile(
+    options: WISLCompileOptions = {}
+  ): Promise<WebpackTestBundle.default> {
     const {
       loaderOptions = {},
       resizeLoaderOptions,

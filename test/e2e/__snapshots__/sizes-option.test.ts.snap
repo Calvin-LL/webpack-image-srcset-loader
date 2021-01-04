@@ -2,11 +2,11 @@
 
 exports[`v4 "sizes" option should work with ["1x", "2x"]: result 1`] = `"fe14ecfa6e9cef9040cc28fed5958c27.jpg 1x, bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x"`;
 
-exports[`v4 "sizes" option should work with ["1x", "300w", "original", "2x"]: result 1`] = `"fe14ecfa6e9cef9040cc28fed5958c27.jpg 1x, 76ab12b37821a8c18371948d1be1b6c1.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg, bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x"`;
+exports[`v4 "sizes" option should work with ["1x", "300w", "original", "2x"]: result 1`] = `"fe14ecfa6e9cef9040cc28fed5958c27.jpg 1x, e9bda9871f75495eaf0d6420c8fca85f.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg, bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x"`;
 
 exports[`v4 "sizes" option should work with ["2x"]: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x"`;
 
-exports[`v4 "sizes" option should work with ["300w"]: result 1`] = `"76ab12b37821a8c18371948d1be1b6c1.jpg 300w"`;
+exports[`v4 "sizes" option should work with ["300w"]: result 1`] = `"e9bda9871f75495eaf0d6420c8fca85f.jpg 300w"`;
 
 exports[`v4 "sizes" option should work with ["original"]: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpg"`;
 
@@ -14,11 +14,11 @@ exports[`v4 "sizes" option should work with empty array: result 1`] = `""`;
 
 exports[`v5 "sizes" option should work with ["1x", "2x"]: result 1`] = `"fe14ecfa6e9cef9040cc28fed5958c27.jpg 1x, bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x"`;
 
-exports[`v5 "sizes" option should work with ["1x", "300w", "original", "2x"]: result 1`] = `"fe14ecfa6e9cef9040cc28fed5958c27.jpg 1x, 76ab12b37821a8c18371948d1be1b6c1.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg, bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x"`;
+exports[`v5 "sizes" option should work with ["1x", "300w", "original", "2x"]: result 1`] = `"fe14ecfa6e9cef9040cc28fed5958c27.jpg 1x, e9bda9871f75495eaf0d6420c8fca85f.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg, bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x"`;
 
 exports[`v5 "sizes" option should work with ["2x"]: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x"`;
 
-exports[`v5 "sizes" option should work with ["300w"]: result 1`] = `"76ab12b37821a8c18371948d1be1b6c1.jpg 300w"`;
+exports[`v5 "sizes" option should work with ["300w"]: result 1`] = `"e9bda9871f75495eaf0d6420c8fca85f.jpg 300w"`;
 
 exports[`v5 "sizes" option should work with ["original"]: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpg"`;
 
