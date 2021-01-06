@@ -12,6 +12,10 @@ describe.each([4, 5] as const)("v%d validate options", (webpackVersion) => {
       success: [true, false],
       failure: ["true"],
     },
+    resizeLoader: {
+      success: ["webpack-image-resize-loader"],
+      failure: [3],
+    },
     customOptionsFactory: {
       success: [() => ({})],
       failure: [true],

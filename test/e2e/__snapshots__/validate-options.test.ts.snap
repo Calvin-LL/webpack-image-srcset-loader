@@ -12,6 +12,12 @@ exports[`v4 validate options should throw an error on the "esModule" option with
    -> By default, webpack-image-placeholder-loader generates JS modules that use the ES modules syntax. Default to true."
 `;
 
+exports[`v4 validate options should throw an error on the "resizeLoader" option with 3 value 1`] = `
+"Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
+ - options.resizeLoader should be a string.
+   -> Name of resize loader. Default to "webpack-image-resize-loader"."
+`;
+
 exports[`v4 validate options should throw an error on the "scaleUp" option with "true" value 1`] = `
 "Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
  - options.scaleUp should be a boolean.
@@ -63,6 +69,12 @@ exports[`v5 validate options should throw an error on the "esModule" option with
 "Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
  - options.esModule should be a boolean.
    -> By default, webpack-image-placeholder-loader generates JS modules that use the ES modules syntax. Default to true."
+`;
+
+exports[`v5 validate options should throw an error on the "resizeLoader" option with 3 value 1`] = `
+"Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
+ - options.resizeLoader should be a string.
+   -> Name of resize loader. Default to "webpack-image-resize-loader"."
 `;
 
 exports[`v5 validate options should throw an error on the "scaleUp" option with "true" value 1`] = `
