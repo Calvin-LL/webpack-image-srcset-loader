@@ -8,7 +8,6 @@ import { getOptions } from "@calvin-l/webpack-loader-util";
 
 import getMaxDensity from "./helpers/getMaxDensity";
 import getOptionFromSize from "./helpers/getOptionFromSize";
-import normalizeQueryLoaderOptions from "./helpers/normalizeQueryLoaderOptions";
 import validateSizes from "./helpers/validateSizes";
 import schema from "./options.json";
 
@@ -141,7 +140,6 @@ function addOptionsToResizeLoader(
   customOptionsFactory: FullOptions["customOptionsFactory"]
 ): string {
   const nextLoader = loaders[loaderIndex + 1];
-  const isNextLoaderQueryLoader = getIsLoaderQueryLoader(nextLoader);
 
   const resizeLoaderOptions =
     typeof nextLoader.options === "string"
@@ -166,33 +164,6 @@ function addOptionsToResizeLoader(
         )
     );
 
-  if (isNextLoaderQueryLoader) {
-    const queryLoaderOptions = normalizeQueryLoaderOptions(resizeLoaderOptions);
-
-    return remainingRequest.replace(
-      resizeLoaderRequest,
-      resizeLoaderPath +
-        "?" +
-        escapeJsonStringForLoader(
-          JSON.stringify({
-            ...queryLoaderOptions,
-            use: {
-              loader: queryLoaderOptions.use.loader,
-              options: {
-                scaleUp: true,
-                ...queryLoaderOptions.use.options,
-                ...options,
-                fileLoaderOptions: {
-                  ...queryLoaderOptions.use.options?.fileLoaderOptions,
-                  esModule: false, // because we're using require in pitch
-                },
-              },
-            },
-          })
-        )
-    );
-  }
-
   return remainingRequest.replace(
     resizeLoaderRequest,
     resizeLoaderPath +
@@ -209,15 +180,6 @@ function addOptionsToResizeLoader(
         })
       )
   );
-}
-
-function getIsLoaderQueryLoader(nextLoader: any): boolean {
-  if (nextLoader === undefined)
-    throw "webpack-image-srcset-loader must be placed at the beginning and followed by a resize loader";
-
-  if ((nextLoader.path as string).includes("webpack-query-loader")) return true;
-
-  return false;
 }
 
 // needed so webpack doesn't mistake "!" for query operator "!"
