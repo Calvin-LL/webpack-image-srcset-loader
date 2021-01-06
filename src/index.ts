@@ -1,4 +1,3 @@
-import { parseQuery } from "loader-utils";
 import { validate } from "schema-utils";
 import { Schema } from "schema-utils/declarations/validate";
 import sharp from "sharp";
@@ -8,24 +7,24 @@ import { getOptions } from "@calvin-l/webpack-loader-util";
 
 import getMaxDensity from "./helpers/getMaxDensity";
 import getOptionFromSize from "./helpers/getOptionFromSize";
+import getRequireString from "./helpers/getRequireStringWithModifiedResizeLoaderOptions";
 import validateSizes from "./helpers/validateSizes";
 import schema from "./options.json";
 
 export interface Options {
-  // Waiting for typescript 4.2.0 to fix https://github.com/microsoft/TypeScript/issues/41651
-  // readonly sizes?: (`${number}w` | `${number}x` | "original")[];
-  readonly sizes?: string[];
+  readonly sizes?: (`${number}w` | `${number}x` | "original")[];
   readonly scaleUp?: boolean;
+  readonly resizeLoader?: string;
   readonly customOptionsFactory?: (
     width: number | undefined,
     scale: number | undefined,
     existingOptions: Record<string, any> | undefined
-  ) => string;
+  ) => Record<string, any>;
   readonly esModule?: boolean;
 }
 
 export type FullOptions = Options &
-  Required<Pick<Options, "sizes" | "scaleUp" | "esModule">>;
+  Required<Pick<Options, "sizes" | "scaleUp" | "resizeLoader" | "esModule">>;
 
 export const raw = true;
 
@@ -38,6 +37,7 @@ export function pitch(
     // @ts-expect-error setting sizes as undefined and let validate throw error if it doesn't exist
     sizes: undefined,
     scaleUp: false,
+    resizeLoader: "webpack-image-resize-loader",
     esModule: true,
   };
   const options: FullOptions = {
@@ -77,6 +77,7 @@ export default function (this: loader.LoaderContext, source: Buffer): Buffer {
   return source;
 }
 
+// return require('-!some-loader?{...}!resize-loader?{...}!file.png')
 async function generateSrcSetString(
   remainingRequest: string,
   loaders: any[],
@@ -95,12 +96,14 @@ async function generateSrcSetString(
   const requireEnd = "')}";
 
   for (const size of sizes) {
+    // no need for options.scale or options.width if size === "orignal"
     if (size === "original") {
-      result += `${requireStart}${addOptionsToResizeLoader(
+      result += `${requireStart}${getRequireString(
         remainingRequest,
         loaders,
         loaderIndex,
         {},
+        options.resizeLoader,
         options.customOptionsFactory
       )}${requireEnd}${separator}`;
 
@@ -118,11 +121,12 @@ async function generateSrcSetString(
       if (width !== undefined && resizeLoaderOption.width > width) continue;
     }
 
-    result += `${requireStart}${addOptionsToResizeLoader(
+    result += `${requireStart}${getRequireString(
       remainingRequest,
       loaders,
       loaderIndex,
       resizeLoaderOption,
+      options.resizeLoader,
       options.customOptionsFactory
     )}${requireEnd} ${size}${separator}`;
   }
@@ -130,59 +134,4 @@ async function generateSrcSetString(
   result = result.substring(0, result.length - 2);
 
   return result;
-}
-
-function addOptionsToResizeLoader(
-  remainingRequest: string,
-  loaders: any[],
-  loaderIndex: number,
-  options: { width?: number; scale?: number },
-  customOptionsFactory: FullOptions["customOptionsFactory"]
-): string {
-  const nextLoader = loaders[loaderIndex + 1];
-
-  const resizeLoaderOptions =
-    typeof nextLoader.options === "string"
-      ? parseQuery("?" + nextLoader.options)
-      : nextLoader.options;
-  const resizeLoaderRequest = nextLoader.request;
-  const resizeLoaderPath = nextLoader.path;
-
-  if (customOptionsFactory)
-    return remainingRequest.replace(
-      resizeLoaderRequest,
-      resizeLoaderPath +
-        "?" +
-        escapeJsonStringForLoader(
-          JSON.stringify(
-            customOptionsFactory(
-              options.width,
-              options.scale,
-              resizeLoaderOptions
-            )
-          )
-        )
-    );
-
-  return remainingRequest.replace(
-    resizeLoaderRequest,
-    resizeLoaderPath +
-      "?" +
-      escapeJsonStringForLoader(
-        JSON.stringify({
-          scaleUp: true,
-          ...resizeLoaderOptions,
-          ...options,
-          fileLoaderOptions: {
-            ...resizeLoaderOptions?.fileLoaderOptions,
-            esModule: false, // because we're using require in pitch
-          },
-        })
-      )
-  );
-}
-
-// needed so webpack doesn't mistake "!" for query operator "!"
-function escapeJsonStringForLoader(s: string): string {
-  return s.replace(/!/g, "\\\\x21");
 }

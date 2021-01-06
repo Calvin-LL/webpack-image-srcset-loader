@@ -4,7 +4,11 @@ describe.each([4, 5] as const)(
   'v%d "customOptionsFactory" option',
   (webpackVersion) => {
     it("should work with a function", async () => {
-      const mockCustomOptionsFactory = jest.fn().mockReturnValue({
+      const mockCustomOptionsFactory: (
+        width: number | undefined,
+        scale: number | undefined,
+        existingOptions: Record<string, any>
+      ) => Record<string, any> = jest.fn().mockReturnValue({
         fileLoaderOptions: {
           esModule: false,
         },
@@ -17,7 +21,7 @@ describe.each([4, 5] as const)(
           customOptionsFactory: (
             width: number | undefined,
             scale: number | undefined,
-            existingOptions: Record<string, unknown>
+            existingOptions: Record<string, any>
           ) => mockCustomOptionsFactory(width, scale, existingOptions),
         },
       });

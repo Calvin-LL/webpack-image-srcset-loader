@@ -14,6 +14,10 @@
       "description": "Whether or not to scale up the image when the desired size is larger than the image size. Default to false.",
       "type": "boolean"
     },
+    "resizeLoader": {
+      "description": "Name of resize loader. Default to \"webpack-image-resize-loader\".",
+      "type": "string"
+    },
     "customOptionsFactory": {
       "description": "A function that returns the option to be passed on to the next loader.",
       "instanceof": "Function"
