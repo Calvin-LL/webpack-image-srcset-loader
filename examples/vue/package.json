@@ -15,6 +15,6 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.4",
     "webpack-image-resize-loader": "^3.1.0",
-    "webpack-image-srcset-loader": "^4.0.0"
+    "webpack-image-srcset-loader": "file:../.."
   }
 }

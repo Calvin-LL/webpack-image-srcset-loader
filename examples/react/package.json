@@ -19,6 +19,6 @@
     "webpack": "^5.10.1",
     "webpack-cli": "^4.2.0",
     "webpack-image-resize-loader": "^3.1.0",
-    "webpack-image-srcset-loader": "^4.0.0"
+    "webpack-image-srcset-loader": "file:../.."
   }
 }
