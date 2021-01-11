@@ -9,7 +9,7 @@ exports[`v4 validate options should throw an error on the "esModule" option with
 exports[`v4 validate options should throw an error on the "optionsGenerator" option with true value 1`] = `
 "Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
  - options.optionsGenerator should be an instance of function.
-   -> A function that returns the option to be passed on to webpack-image-resize-loader."
+   -> A function that returns the option to be passed on to the given resizeLoader."
 `;
 
 exports[`v4 validate options should throw an error on the "resizeLoader" option with 3 value 1`] = `
@@ -68,7 +68,7 @@ exports[`v5 validate options should throw an error on the "esModule" option with
 exports[`v5 validate options should throw an error on the "optionsGenerator" option with true value 1`] = `
 "Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
  - options.optionsGenerator should be an instance of function.
-   -> A function that returns the option to be passed on to webpack-image-resize-loader."
+   -> A function that returns the option to be passed on to the given resizeLoader."
 `;
 
 exports[`v5 validate options should throw an error on the "resizeLoader" option with 3 value 1`] = `

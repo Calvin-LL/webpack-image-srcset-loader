@@ -19,7 +19,7 @@
       "type": "string"
     },
     "optionsGenerator": {
-      "description": "A function that returns the option to be passed on to webpack-image-resize-loader.",
+      "description": "A function that returns the option to be passed on to the given resizeLoader.",
       "instanceof": "Function"
     },
     "esModule": {
