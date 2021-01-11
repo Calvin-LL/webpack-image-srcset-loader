@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`v4 validate options should throw an error on the "customOptionsFactory" option with true value 1`] = `
-"Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
- - options.customOptionsFactory should be an instance of function.
-   -> A function that returns the option to be passed on to the next loader."
-`;
-
 exports[`v4 validate options should throw an error on the "esModule" option with "true" value 1`] = `
 "Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
  - options.esModule should be a boolean.
-   -> By default, webpack-image-placeholder-loader generates JS modules that use the ES modules syntax. Default to true."
+   -> By default, webpack-image-srcset-loader generates JS modules that use the ES modules syntax. Default to true."
+`;
+
+exports[`v4 validate options should throw an error on the "optionsGenerator" option with true value 1`] = `
+"Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
+ - options.optionsGenerator should be an instance of function.
+   -> A function that returns the option to be passed on to webpack-image-resize-loader."
 `;
 
 exports[`v4 validate options should throw an error on the "resizeLoader" option with 3 value 1`] = `
@@ -59,16 +59,16 @@ exports[`v4 validate options should throw an error on the "sizes" option with [n
  - options.sizes[0] should be a string."
 `;
 
-exports[`v5 validate options should throw an error on the "customOptionsFactory" option with true value 1`] = `
-"Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
- - options.customOptionsFactory should be an instance of function.
-   -> A function that returns the option to be passed on to the next loader."
-`;
-
 exports[`v5 validate options should throw an error on the "esModule" option with "true" value 1`] = `
 "Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
  - options.esModule should be a boolean.
-   -> By default, webpack-image-placeholder-loader generates JS modules that use the ES modules syntax. Default to true."
+   -> By default, webpack-image-srcset-loader generates JS modules that use the ES modules syntax. Default to true."
+`;
+
+exports[`v5 validate options should throw an error on the "optionsGenerator" option with true value 1`] = `
+"Invalid options object. webpack-image-srcset-loader has been initialized using an options object that does not match the API schema.
+ - options.optionsGenerator should be an instance of function.
+   -> A function that returns the option to be passed on to webpack-image-resize-loader."
 `;
 
 exports[`v5 validate options should throw an error on the "resizeLoader" option with 3 value 1`] = `
