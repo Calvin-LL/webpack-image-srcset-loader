@@ -1,10 +1,10 @@
 import WISLWebpackTestCompiler from "./helpers/WISLWebpackTestCompiler";
 
 describe.each([4, 5] as const)(
-  'v%d "customOptionsFactory" option',
+  'v%d "optionsGenerator" option',
   (webpackVersion) => {
     it("should work with a function", async () => {
-      const mockCustomOptionsFactory: (
+      const mockOptionsGenerator: (
         width: number | undefined,
         scale: number | undefined,
         existingOptions: Record<string, any>
@@ -18,18 +18,18 @@ describe.each([4, 5] as const)(
       const bundle = await compiler.compile({
         loaderOptions: {
           sizes: ["2x", "original", "1x", "300w"],
-          customOptionsFactory: (
+          optionsGenerator: (
             width: number | undefined,
             scale: number | undefined,
             existingOptions: Record<string, any>
-          ) => mockCustomOptionsFactory(width, scale, existingOptions),
+          ) => mockOptionsGenerator(width, scale, existingOptions),
         },
       });
 
       expect(bundle.execute("main.js")).toMatchSnapshot("result");
 
-      expect(mockCustomOptionsFactory).toHaveBeenCalled();
-      expect(mockCustomOptionsFactory).toMatchSnapshot();
+      expect(mockOptionsGenerator).toHaveBeenCalled();
+      expect(mockOptionsGenerator).toMatchSnapshot();
     });
   }
 );

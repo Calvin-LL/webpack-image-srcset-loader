@@ -16,7 +16,7 @@ describe.each([4, 5] as const)("v%d validate options", (webpackVersion) => {
       success: ["webpack-image-resize-loader"],
       failure: [3],
     },
-    customOptionsFactory: {
+    optionsGenerator: {
       success: [() => ({})],
       failure: [true],
     },

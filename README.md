@@ -85,12 +85,12 @@ import webpSrcSet from "./some_pic.jpg?srcset&format=webp";
 // webpSrcSet will be "00[...]5.webp 480w, 40[...]3.webp 1024w, 76[...]b.webp 1920w, a4[...]c.webp 2560w, b1[...]c.webp"
 ```
 
-| Name                                                | Type         | Default   | Description                                                                                  |
-| --------------------------------------------------- | ------------ | --------- | -------------------------------------------------------------------------------------------- |
-| **[`sizes`](#sizes)**                               | `(string)[]` | undefined | Sizes in the output srcset.                                                                  |
-| **[`scaleUp`](#scaleup)**                           | `boolean`    | `false`   | Whether or not to scale up the image when the desired width is greater than the image width. |
-| **[`customOptionsFactory`](#customoptionsfactory)** | `function`   | undefined | A function that returns the option to be passed on to the next loader.                       |
-| **[`esModule`](#esmodule)**                         | `boolean`    | `true`    | Whether the export is in ES modules syntax or CommonJS modules syntax                        |
+| Name                                        | Type         | Default   | Description                                                                                  |
+| ------------------------------------------- | ------------ | --------- | -------------------------------------------------------------------------------------------- |
+| **[`sizes`](#sizes)**                       | `(string)[]` | undefined | Sizes in the output srcset.                                                                  |
+| **[`scaleUp`](#scaleup)**                   | `boolean`    | `false`   | Whether or not to scale up the image when the desired width is greater than the image width. |
+| **[`optionsGenerator`](#optionsgenerator)** | `function`   | undefined | A function that returns the option to be passed on to the next loader.                       |
+| **[`esModule`](#esmodule)**                 | `boolean`    | `true`    | Whether the export is in ES modules syntax or CommonJS modules syntax                        |
 
 ### `sizes`
 
@@ -108,7 +108,7 @@ When true, if the desired width is greater than the image width, the size will n
 
 Note: this option has no effect on `"[number]x"` or `"original"`
 
-### `customOptionsFactory`
+### `optionsGenerator`
 
 If you wish to use a resize loader other than [webpack-image-resize-loader](https://github.com/Calvin-LL/webpack-image-resize-loader). You may customize how the width and scale is passed down to that loader`s options.
 
@@ -122,12 +122,12 @@ If you wish to use a resize loader other than [webpack-image-resize-loader](http
 }
 ```
 
-For example, if `sizes` is `["10w", "1x", "2x", "original"]`, `customOptionsFactory` will be called with
+For example, if `sizes` is `["10w", "1x", "2x", "original"]`, `optionsGenerator` will be called with
 
-- `customOptionsFactory(10, undefined, existingOptions)` for `10w`
-- `customOptionsFactory(undefined, 1, existingOptions)` for `1x`
-- `customOptionsFactory(undefined, 2, existingOptions)` for `2x`
-- `customOptionsFactory(undefined, undefined, existingOptions)` for `"original"`
+- `optionsGenerator(10, undefined, existingOptions)` for `10w`
+- `optionsGenerator(undefined, 1, existingOptions)` for `1x`
+- `optionsGenerator(undefined, 2, existingOptions)` for `2x`
+- `optionsGenerator(undefined, undefined, existingOptions)` for `"original"`
 
 ### `esModule`
 

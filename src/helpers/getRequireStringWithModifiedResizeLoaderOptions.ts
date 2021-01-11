@@ -13,7 +13,7 @@ export default function getRequireStringWithModifiedResizeLoaderOptions(
   loaderIndex: number,
   options: { width?: number; scale?: number },
   resizeLoaderName: string,
-  customOptionsFactory: FullOptions["customOptionsFactory"]
+  optionsGenerator: FullOptions["optionsGenerator"]
 ): string {
   const resizeLoaderResolvedPath = require.resolve(resizeLoaderName);
   const resizeLoader = loaders.find(
@@ -31,18 +31,14 @@ export default function getRequireStringWithModifiedResizeLoaderOptions(
   const resizeLoaderRequest = resizeLoader.request;
   const resizeLoaderPath = resizeLoader.path;
 
-  if (customOptionsFactory)
+  if (optionsGenerator)
     return remainingRequest.replace(
       resizeLoaderRequest,
       resizeLoaderPath +
         "?" +
         escapeJsonStringForLoader(
           JSON.stringify(
-            customOptionsFactory(
-              options.width,
-              options.scale,
-              resizeLoaderOptions
-            )
+            optionsGenerator(options.width, options.scale, resizeLoaderOptions)
           )
         )
     );

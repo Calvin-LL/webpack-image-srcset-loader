@@ -18,7 +18,7 @@
       "description": "Name of resize loader. Default to \"webpack-image-resize-loader\".",
       "type": "string"
     },
-    "customOptionsFactory": {
+    "optionsGenerator": {
       "description": "A function that returns the option to be passed on to webpack-image-resize-loader.",
       "instanceof": "Function"
     },
