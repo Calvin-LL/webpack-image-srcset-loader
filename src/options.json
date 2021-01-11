@@ -19,11 +19,11 @@
       "type": "string"
     },
     "customOptionsFactory": {
-      "description": "A function that returns the option to be passed on to the next loader.",
+      "description": "A function that returns the option to be passed on to webpack-image-resize-loader.",
       "instanceof": "Function"
     },
     "esModule": {
-      "description": "By default, webpack-image-placeholder-loader generates JS modules that use the ES modules syntax. Default to true.",
+      "description": "By default, webpack-image-srcset-loader generates JS modules that use the ES modules syntax. Default to true.",
       "type": "boolean"
     }
   }
