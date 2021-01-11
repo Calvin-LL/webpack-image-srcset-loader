@@ -28,7 +28,7 @@ it("should handle resizeLoaderPath options being string", () => {
   ];
   const loaderIndex = 0;
   const options = {};
-  const optionsGenerator = undefined;
+  const resizeLoaderOptionsGenerator = undefined;
 
   const result = getRequireStringWithModifiedResizeLoaderOptions(
     remainingRequest,
@@ -36,7 +36,7 @@ it("should handle resizeLoaderPath options being string", () => {
     loaderIndex,
     options,
     resizeLoaderName,
-    optionsGenerator
+    resizeLoaderOptionsGenerator
   );
 
   expect(result).toMatchInlineSnapshot(
@@ -72,7 +72,7 @@ it("should handle resizeLoaderPath options being object", () => {
   ];
   const loaderIndex = 0;
   const options = {};
-  const optionsGenerator = undefined;
+  const resizeLoaderOptionsGenerator = undefined;
 
   const result = getRequireStringWithModifiedResizeLoaderOptions(
     remainingRequest,
@@ -80,7 +80,7 @@ it("should handle resizeLoaderPath options being object", () => {
     loaderIndex,
     options,
     resizeLoaderName,
-    optionsGenerator
+    resizeLoaderOptionsGenerator
   );
 
   expect(result).toMatchInlineSnapshot(
@@ -116,7 +116,7 @@ it("should handle resizeLoaderPath options being undefined", () => {
   ];
   const loaderIndex = 0;
   const options = {};
-  const optionsGenerator = undefined;
+  const resizeLoaderOptionsGenerator = undefined;
 
   const result = getRequireStringWithModifiedResizeLoaderOptions(
     remainingRequest,
@@ -124,7 +124,7 @@ it("should handle resizeLoaderPath options being undefined", () => {
     loaderIndex,
     options,
     resizeLoaderName,
-    optionsGenerator
+    resizeLoaderOptionsGenerator
   );
 
   expect(result).toMatchInlineSnapshot(
@@ -160,7 +160,7 @@ it("should throw if resizeLoader not found", () => {
   ];
   const loaderIndex = 0;
   const options = {};
-  const optionsGenerator = undefined;
+  const resizeLoaderOptionsGenerator = undefined;
 
   expect(() =>
     getRequireStringWithModifiedResizeLoaderOptions(
@@ -169,14 +169,14 @@ it("should throw if resizeLoader not found", () => {
       loaderIndex,
       options,
       "file-loader",
-      optionsGenerator
+      resizeLoaderOptionsGenerator
     )
   ).toThrowErrorMatchingInlineSnapshot(
     `"Can't find file-loader in the list of loaders"`
   );
 });
 
-it("should handle optionsGenerator", () => {
+it("should handle resizeLoaderOptionsGenerator", () => {
   const urlLoaderPath = require.resolve("url-loader");
   const resizeLoaderName = "webpack-image-resize-loader";
   const resizeLoaderPath = require.resolve(resizeLoaderName);
@@ -204,7 +204,9 @@ it("should handle optionsGenerator", () => {
   ];
   const loaderIndex = 0;
   const options = {};
-  const optionsGenerator = (): Record<string, any> => ({ test: "true" });
+  const resizeLoaderOptionsGenerator = (): Record<string, any> => ({
+    test: "true",
+  });
 
   const result = getRequireStringWithModifiedResizeLoaderOptions(
     remainingRequest,
@@ -212,7 +214,7 @@ it("should handle optionsGenerator", () => {
     loaderIndex,
     options,
     resizeLoaderName,
-    optionsGenerator
+    resizeLoaderOptionsGenerator
   );
 
   expect(result).toMatchInlineSnapshot(

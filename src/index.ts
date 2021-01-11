@@ -15,7 +15,7 @@ export interface Options {
   readonly sizes?: (`${number}w` | `${number}x` | "original")[];
   readonly scaleUp?: boolean;
   readonly resizeLoader?: string;
-  readonly optionsGenerator?: (
+  readonly resizeLoaderOptionsGenerator?: (
     width: number | undefined,
     scale: number | undefined,
     existingOptions: Record<string, any> | undefined
@@ -104,7 +104,7 @@ async function generateSrcSetString(
         loaderIndex,
         {},
         options.resizeLoader,
-        options.optionsGenerator
+        options.resizeLoaderOptionsGenerator
       )}${requireEnd}${separator}`;
 
       continue;
@@ -127,7 +127,7 @@ async function generateSrcSetString(
       loaderIndex,
       resizeLoaderOption,
       options.resizeLoader,
-      options.optionsGenerator
+      options.resizeLoaderOptionsGenerator
     )}${requireEnd} ${size}${separator}`;
   }
 

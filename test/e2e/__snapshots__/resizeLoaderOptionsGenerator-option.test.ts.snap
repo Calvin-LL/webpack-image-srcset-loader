@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`v4 "optionsGenerator" option should work with a function 1`] = `
+exports[`v4 "resizeLoaderOptionsGenerator" option should work with a function 1`] = `
 [MockFunction] {
   "calls": Array [
     Array [
@@ -61,9 +61,9 @@ exports[`v4 "optionsGenerator" option should work with a function 1`] = `
 }
 `;
 
-exports[`v4 "optionsGenerator" option should work with a function: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x, bd2b9fdf768b5eb139702c4c3b4573de.jpg, bd2b9fdf768b5eb139702c4c3b4573de.jpg 1x, bd2b9fdf768b5eb139702c4c3b4573de.jpg 300w"`;
+exports[`v4 "resizeLoaderOptionsGenerator" option should work with a function: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x, bd2b9fdf768b5eb139702c4c3b4573de.jpg, bd2b9fdf768b5eb139702c4c3b4573de.jpg 1x, bd2b9fdf768b5eb139702c4c3b4573de.jpg 300w"`;
 
-exports[`v5 "optionsGenerator" option should work with a function 1`] = `
+exports[`v5 "resizeLoaderOptionsGenerator" option should work with a function 1`] = `
 [MockFunction] {
   "calls": Array [
     Array [
@@ -124,4 +124,4 @@ exports[`v5 "optionsGenerator" option should work with a function 1`] = `
 }
 `;
 
-exports[`v5 "optionsGenerator" option should work with a function: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x, bd2b9fdf768b5eb139702c4c3b4573de.jpg, bd2b9fdf768b5eb139702c4c3b4573de.jpg 1x, bd2b9fdf768b5eb139702c4c3b4573de.jpg 300w"`;
+exports[`v5 "resizeLoaderOptionsGenerator" option should work with a function: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpg 2x, bd2b9fdf768b5eb139702c4c3b4573de.jpg, bd2b9fdf768b5eb139702c4c3b4573de.jpg 1x, bd2b9fdf768b5eb139702c4c3b4573de.jpg 300w"`;
