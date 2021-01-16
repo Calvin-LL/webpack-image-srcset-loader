@@ -22,7 +22,9 @@ export default function getRequireStringWithModifiedResizeLoaderOptions(
   );
 
   if (resizeLoader === undefined)
-    throw new Error(`Can't find ${resizeLoaderName} in the list of loaders`);
+    throw new Error(
+      `Can't find ${resizeLoaderName} in the list of loaders after webpack-image-srcset-loader`
+    );
 
   const resizeLoaderOptions =
     typeof resizeLoader.options === "string"
@@ -31,36 +33,18 @@ export default function getRequireStringWithModifiedResizeLoaderOptions(
   const resizeLoaderRequest = resizeLoader.request;
   const resizeLoaderPath = resizeLoader.path;
 
-  if (resizeLoaderOptionsGenerator)
-    return remainingRequest.replace(
-      resizeLoaderRequest,
-      resizeLoaderPath +
-        "?" +
-        escapeJsonStringForLoader(
-          JSON.stringify(
-            resizeLoaderOptionsGenerator(
-              options.width,
-              options.scale,
-              resizeLoaderOptions
-            )
-          )
-        )
-    );
-
   return remainingRequest.replace(
     resizeLoaderRequest,
     resizeLoaderPath +
       "?" +
       escapeJsonStringForLoader(
-        JSON.stringify({
-          scaleUp: true,
-          ...resizeLoaderOptions,
-          ...options,
-          fileLoaderOptions: {
-            ...resizeLoaderOptions?.fileLoaderOptions,
-            esModule: false, // because we're using require in pitch
-          },
-        })
+        JSON.stringify(
+          resizeLoaderOptionsGenerator(
+            options.width,
+            options.scale,
+            resizeLoaderOptions
+          )
+        )
       )
   );
 }

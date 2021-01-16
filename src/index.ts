@@ -24,7 +24,16 @@ export interface Options {
 }
 
 export type FullOptions = Options &
-  Required<Pick<Options, "sizes" | "scaleUp" | "resizeLoader" | "esModule">>;
+  Required<
+    Pick<
+      Options,
+      | "sizes"
+      | "scaleUp"
+      | "resizeLoader"
+      | "resizeLoaderOptionsGenerator"
+      | "esModule"
+    >
+  >;
 
 export const raw = true;
 
@@ -38,6 +47,7 @@ export function pitch(
     sizes: undefined,
     scaleUp: false,
     resizeLoader: "webpack-image-resize-loader",
+    resizeLoaderOptionsGenerator: defaultResizeLoaderOptionsGenerator,
     esModule: true,
   };
   const options: FullOptions = {
@@ -68,13 +78,29 @@ export function pitch(
         }  \`${srcSetString}\`;`
       );
     })
-    .catch((e) => {
-      throw e;
+    .catch((error) => {
+      callback(error, undefined);
     });
 }
 
 export default function (this: loader.LoaderContext, source: Buffer): Buffer {
   return source;
+}
+
+export function defaultResizeLoaderOptionsGenerator(
+  width: number | undefined,
+  scale: number | undefined,
+  existingOptions: Record<string, any> | undefined
+): Record<string, any> {
+  return {
+    ...existingOptions,
+    width,
+    scale,
+    fileLoaderOptions: {
+      ...existingOptions?.fileLoaderOptions,
+      esModule: false, // because we're using require in pitch
+    },
+  };
 }
 
 // return require('-!some-loader?{...}!resize-loader?{...}!file.png')
