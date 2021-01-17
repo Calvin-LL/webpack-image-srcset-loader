@@ -32,7 +32,7 @@ describe.each([4, 5] as const)(
 
       const compiler = new WISLWebpackTestCompiler({ webpackVersion });
       const bundle = await compiler.compile({
-        fileContentOverride: `__export__ = require('-!${loaderPath}?${loaderOptionsString}!webpack-image-resize-loader?${resizeLoaderOptionssString}!./Macaca_nigra_self-portrait_large.jpg');`,
+        fileContentOverride: `__export__ = require('-!${loaderPath}?${loaderOptionsString}!file-loader!webpack-image-resize-loader?${resizeLoaderOptionssString}!./Macaca_nigra_self-portrait_large.jpg');`,
       });
 
       expect(bundle.execute("main.js")).toMatchSnapshot("result");

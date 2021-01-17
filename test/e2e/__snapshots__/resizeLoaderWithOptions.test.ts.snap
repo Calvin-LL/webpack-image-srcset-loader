@@ -2,16 +2,16 @@
 
 exports[`v4 resize loader with options should work with options in query: result 1`] = `
 Object {
-  "default": "e9bda9871f75495eaf0d6420c8fca85f.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg",
+  "default": "e9bda9871f75495eaf0d6420c8fca85f.jpeg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpeg",
 }
 `;
 
-exports[`v4 resize loader with options should work with options in webpackConfig: result 1`] = `"e9bda9871f75495eaf0d6420c8fca85f.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg"`;
+exports[`v4 resize loader with options should work with options in webpackConfig: result 1`] = `"e9bda9871f75495eaf0d6420c8fca85f.jpeg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpeg"`;
 
 exports[`v5 resize loader with options should work with options in query: result 1`] = `
 Object {
-  "default": "e9bda9871f75495eaf0d6420c8fca85f.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg",
+  "default": "e9bda9871f75495eaf0d6420c8fca85f.jpeg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpeg",
 }
 `;
 
-exports[`v5 resize loader with options should work with options in webpackConfig: result 1`] = `"e9bda9871f75495eaf0d6420c8fca85f.jpg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpg"`;
+exports[`v5 resize loader with options should work with options in webpackConfig: result 1`] = `"e9bda9871f75495eaf0d6420c8fca85f.jpeg 300w, bd2b9fdf768b5eb139702c4c3b4573de.jpeg"`;

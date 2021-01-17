@@ -1,10 +1,16 @@
-import getRequireStringWithModifiedResizeLoaderOptions from "../../src/helpers/getRequireStringWithModifiedResizeLoaderOptions";
+import { loader } from "webpack";
 
-it("should handle resizeLoaderPath options being string", () => {
-  const urlLoaderPath = require.resolve("url-loader");
+import { defaultResizeLoaderOptionsGenerator } from "../../src";
+
+beforeEach(() => {
+  jest.resetModules();
+});
+
+it("should handle resizeLoaderPath options being string", async () => {
+  const fileLoaderPath = require.resolve("file-loader");
   const resizeLoaderName = "webpack-image-resize-loader";
   const resizeLoaderPath = require.resolve(resizeLoaderName);
-  const remainingRequest = `${urlLoaderPath}??ruleSet[1].rules[1].use[0]!${resizeLoaderPath}??ruleSet[1].rules[1].use[1]!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg`;
+  const remainingRequest = `${fileLoaderPath}??ruleSet[1].rules[1].use[0]!${resizeLoaderPath}??ruleSet[1].rules[1].use[1]!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg`;
   const loaders: {
     path: string;
     request: string;
@@ -16,8 +22,8 @@ it("should handle resizeLoaderPath options being string", () => {
       options: undefined,
     },
     {
-      path: urlLoaderPath,
-      request: `${urlLoaderPath}??ruleSet[1].rules[1].use[0]`,
+      path: fileLoaderPath,
+      request: `${fileLoaderPath}??ruleSet[1].rules[1].use[0]`,
       options: { test: 5 },
     },
     {
@@ -28,27 +34,35 @@ it("should handle resizeLoaderPath options being string", () => {
   ];
   const loaderIndex = 0;
   const options = {};
-  const resizeLoaderOptionsGenerator = undefined;
+  const resizeLoaderOptionsGenerator = defaultResizeLoaderOptionsGenerator;
+  const context = { loaders, loaderIndex } as loader.LoaderContext;
 
-  const result = getRequireStringWithModifiedResizeLoaderOptions(
+  jest.doMock("../../src/helpers/resolveLoader", () => ({
+    __esModule: true,
+    default: async () => resizeLoaderPath,
+  }));
+
+  const getRequireString = require("../../src/helpers/getRequireStringWithModifiedResizeLoaderOptions")
+    .default;
+
+  const result = await getRequireString(
+    context,
     remainingRequest,
-    loaders,
-    loaderIndex,
     options,
     resizeLoaderName,
     resizeLoaderOptionsGenerator
   );
 
   expect(result).toMatchInlineSnapshot(
-    `"<rootDir>/node_modules/url-loader/dist/cjs.js??ruleSet[1].rules[1].use[0]!<rootDir>/node_modules/webpack-image-resize-loader/dist/cjs.js?{"scaleUp":true,"test":3,"fileLoaderOptions":{"esModule":false}}!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg"`
+    `"<rootDir>/node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[1].use[0]!<rootDir>/node_modules/webpack-image-resize-loader/dist/cjs.js?{"test":3,"scaleUp":true}!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg"`
   );
 });
 
-it("should handle resizeLoaderPath options being object", () => {
-  const urlLoaderPath = require.resolve("url-loader");
+it("should handle resizeLoaderPath options being object", async () => {
+  const fileLoaderPath = require.resolve("file-loader");
   const resizeLoaderName = "webpack-image-resize-loader";
   const resizeLoaderPath = require.resolve(resizeLoaderName);
-  const remainingRequest = `${urlLoaderPath}??ruleSet[1].rules[1].use[0]!${resizeLoaderPath}??ruleSet[1].rules[1].use[1]!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg`;
+  const remainingRequest = `${fileLoaderPath}??ruleSet[1].rules[1].use[0]!${resizeLoaderPath}??ruleSet[1].rules[1].use[1]!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg`;
   const loaders: {
     path: string;
     request: string;
@@ -60,8 +74,8 @@ it("should handle resizeLoaderPath options being object", () => {
       options: undefined,
     },
     {
-      path: urlLoaderPath,
-      request: `${urlLoaderPath}??ruleSet[1].rules[1].use[0]`,
+      path: fileLoaderPath,
+      request: `${fileLoaderPath}??ruleSet[1].rules[1].use[0]`,
       options: { test: 5 },
     },
     {
@@ -72,27 +86,35 @@ it("should handle resizeLoaderPath options being object", () => {
   ];
   const loaderIndex = 0;
   const options = {};
-  const resizeLoaderOptionsGenerator = undefined;
+  const resizeLoaderOptionsGenerator = defaultResizeLoaderOptionsGenerator;
+  const context = { loaders, loaderIndex } as loader.LoaderContext;
 
-  const result = getRequireStringWithModifiedResizeLoaderOptions(
+  jest.doMock("../../src/helpers/resolveLoader", () => ({
+    __esModule: true,
+    default: async () => resizeLoaderPath,
+  }));
+
+  const getRequireString = require("../../src/helpers/getRequireStringWithModifiedResizeLoaderOptions")
+    .default;
+
+  const result = await getRequireString(
+    context,
     remainingRequest,
-    loaders,
-    loaderIndex,
     options,
     resizeLoaderName,
     resizeLoaderOptionsGenerator
   );
 
   expect(result).toMatchInlineSnapshot(
-    `"<rootDir>/node_modules/url-loader/dist/cjs.js??ruleSet[1].rules[1].use[0]!<rootDir>/node_modules/webpack-image-resize-loader/dist/cjs.js?{"scaleUp":true,"test":3,"fileLoaderOptions":{"esModule":false}}!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg"`
+    `"<rootDir>/node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[1].use[0]!<rootDir>/node_modules/webpack-image-resize-loader/dist/cjs.js?{"test":3,"scaleUp":true}!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg"`
   );
 });
 
-it("should handle resizeLoaderPath options being undefined", () => {
-  const urlLoaderPath = require.resolve("url-loader");
+it("should handle resizeLoaderPath options being undefined", async () => {
+  const fileLoaderPath = require.resolve("file-loader");
   const resizeLoaderName = "webpack-image-resize-loader";
   const resizeLoaderPath = require.resolve(resizeLoaderName);
-  const remainingRequest = `${urlLoaderPath}??ruleSet[1].rules[1].use[0]!${resizeLoaderPath}??ruleSet[1].rules[1].use[1]!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg`;
+  const remainingRequest = `${fileLoaderPath}??ruleSet[1].rules[1].use[0]!${resizeLoaderPath}??ruleSet[1].rules[1].use[1]!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg`;
   const loaders: {
     path: string;
     request: string;
@@ -104,8 +126,8 @@ it("should handle resizeLoaderPath options being undefined", () => {
       options: undefined,
     },
     {
-      path: urlLoaderPath,
-      request: `${urlLoaderPath}??ruleSet[1].rules[1].use[0]`,
+      path: fileLoaderPath,
+      request: `${fileLoaderPath}??ruleSet[1].rules[1].use[0]`,
       options: { test: 5 },
     },
     {
@@ -116,27 +138,35 @@ it("should handle resizeLoaderPath options being undefined", () => {
   ];
   const loaderIndex = 0;
   const options = {};
-  const resizeLoaderOptionsGenerator = undefined;
+  const resizeLoaderOptionsGenerator = defaultResizeLoaderOptionsGenerator;
+  const context = { loaders, loaderIndex } as loader.LoaderContext;
 
-  const result = getRequireStringWithModifiedResizeLoaderOptions(
+  jest.doMock("../../src/helpers/resolveLoader", () => ({
+    __esModule: true,
+    default: async () => resizeLoaderPath,
+  }));
+
+  const getRequireString = require("../../src/helpers/getRequireStringWithModifiedResizeLoaderOptions")
+    .default;
+
+  const result = await getRequireString(
+    context,
     remainingRequest,
-    loaders,
-    loaderIndex,
     options,
     resizeLoaderName,
     resizeLoaderOptionsGenerator
   );
 
   expect(result).toMatchInlineSnapshot(
-    `"<rootDir>/node_modules/url-loader/dist/cjs.js??ruleSet[1].rules[1].use[0]!<rootDir>/node_modules/webpack-image-resize-loader/dist/cjs.js?{"scaleUp":true,"fileLoaderOptions":{"esModule":false}}!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg"`
+    `"<rootDir>/node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[1].use[0]!<rootDir>/node_modules/webpack-image-resize-loader/dist/cjs.js?{"scaleUp":true}!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg"`
   );
 });
 
-it("should throw if resizeLoader not found", () => {
-  const urlLoaderPath = require.resolve("url-loader");
+it("should throw if resizeLoader not found", async () => {
+  const fileLoaderPath = require.resolve("file-loader");
   const resizeLoaderName = "webpack-image-resize-loader";
   const resizeLoaderPath = require.resolve(resizeLoaderName);
-  const remainingRequest = `${urlLoaderPath}??ruleSet[1].rules[1].use[0]!${resizeLoaderPath}??ruleSet[1].rules[1].use[1]!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg`;
+  const remainingRequest = `${fileLoaderPath}??ruleSet[1].rules[1].use[0]!${resizeLoaderPath}??ruleSet[1].rules[1].use[1]!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg`;
   const loaders: {
     path: string;
     request: string;
@@ -148,8 +178,8 @@ it("should throw if resizeLoader not found", () => {
       options: undefined,
     },
     {
-      path: urlLoaderPath,
-      request: `${urlLoaderPath}??ruleSet[1].rules[1].use[0]`,
+      path: fileLoaderPath,
+      request: `${fileLoaderPath}??ruleSet[1].rules[1].use[0]`,
       options: { test: 5 },
     },
     {
@@ -160,27 +190,35 @@ it("should throw if resizeLoader not found", () => {
   ];
   const loaderIndex = 0;
   const options = {};
-  const resizeLoaderOptionsGenerator = undefined;
+  const resizeLoaderOptionsGenerator = defaultResizeLoaderOptionsGenerator;
+  const context = { loaders, loaderIndex } as loader.LoaderContext;
 
-  expect(() =>
-    getRequireStringWithModifiedResizeLoaderOptions(
+  jest.doMock("../../src/helpers/resolveLoader", () => ({
+    __esModule: true,
+    default: async () => "test",
+  }));
+
+  const getRequireString = require("../../src/helpers/getRequireStringWithModifiedResizeLoaderOptions")
+    .default;
+
+  await expect(
+    getRequireString(
+      context,
       remainingRequest,
-      loaders,
-      loaderIndex,
       options,
       "file-loader",
       resizeLoaderOptionsGenerator
     )
-  ).toThrowErrorMatchingInlineSnapshot(
-    `"Can't find file-loader in the list of loaders"`
+  ).rejects.toThrowErrorMatchingInlineSnapshot(
+    `"Can't find file-loader in the list of loaders after webpack-image-srcset-loader"`
   );
 });
 
-it("should handle resizeLoaderOptionsGenerator", () => {
-  const urlLoaderPath = require.resolve("url-loader");
+it("should handle resizeLoaderOptionsGenerator", async () => {
+  const fileLoaderPath = require.resolve("file-loader");
   const resizeLoaderName = "webpack-image-resize-loader";
   const resizeLoaderPath = require.resolve(resizeLoaderName);
-  const remainingRequest = `${urlLoaderPath}??ruleSet[1].rules[1].use[0]!${resizeLoaderPath}??ruleSet[1].rules[1].use[1]!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg`;
+  const remainingRequest = `${fileLoaderPath}??ruleSet[1].rules[1].use[0]!${resizeLoaderPath}??ruleSet[1].rules[1].use[1]!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg`;
   const loaders: {
     path: string;
     request: string;
@@ -192,8 +230,8 @@ it("should handle resizeLoaderOptionsGenerator", () => {
       options: undefined,
     },
     {
-      path: urlLoaderPath,
-      request: `${urlLoaderPath}??ruleSet[1].rules[1].use[0]`,
+      path: fileLoaderPath,
+      request: `${fileLoaderPath}??ruleSet[1].rules[1].use[0]`,
       options: { test: 5 },
     },
     {
@@ -207,17 +245,25 @@ it("should handle resizeLoaderOptionsGenerator", () => {
   const resizeLoaderOptionsGenerator = (): Record<string, any> => ({
     test: "true",
   });
+  const context = { loaders, loaderIndex } as loader.LoaderContext;
 
-  const result = getRequireStringWithModifiedResizeLoaderOptions(
+  jest.doMock("../../src/helpers/resolveLoader", () => ({
+    __esModule: true,
+    default: async () => resizeLoaderPath,
+  }));
+
+  const getRequireString = require("../../src/helpers/getRequireStringWithModifiedResizeLoaderOptions")
+    .default;
+
+  const result = await getRequireString(
+    context,
     remainingRequest,
-    loaders,
-    loaderIndex,
     options,
     resizeLoaderName,
     resizeLoaderOptionsGenerator
   );
 
   expect(result).toMatchInlineSnapshot(
-    `"<rootDir>/node_modules/url-loader/dist/cjs.js??ruleSet[1].rules[1].use[0]!<rootDir>/node_modules/webpack-image-resize-loader/dist/cjs.js?{"test":"true"}!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg"`
+    `"<rootDir>/node_modules/file-loader/dist/cjs.js??ruleSet[1].rules[1].use[0]!<rootDir>/node_modules/webpack-image-resize-loader/dist/cjs.js?{"test":"true"}!/home/username/project-name/src/assets/Macaca_nigra_self-portrait_large.jpg"`
   );
 });
