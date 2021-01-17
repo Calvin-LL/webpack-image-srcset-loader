@@ -1,7 +1,7 @@
 import { validate } from "schema-utils";
 import { Schema } from "schema-utils/declarations/validate";
 import sharp from "sharp";
-import { InputFileSystem, loader } from "webpack";
+import { loader } from "webpack";
 
 import { getOptions } from "@calvin-l/webpack-loader-util";
 
@@ -62,14 +62,7 @@ export function pitch(
 
   validateSizes(options.sizes);
 
-  generateSrcSetString(
-    remainingRequest,
-    this.loaders,
-    this.loaderIndex,
-    options,
-    this.fs,
-    this.resourcePath
-  )
+  generateSrcSetString(this, remainingRequest, options)
     .then((srcSetString) => {
       callback(
         null,
@@ -94,24 +87,23 @@ export function defaultResizeLoaderOptionsGenerator(
 ): Record<string, any> {
   return {
     ...existingOptions,
+    // since we filtered out all the width that are too wide,
+    // nothing to worry about there, need this to make sure
+    // scales larger than 1x works
+    scaleUp: true,
     width,
     scale,
-    fileLoaderOptions: {
-      ...existingOptions?.fileLoaderOptions,
-      esModule: false, // because we're using require in pitch
-    },
   };
 }
 
 // return require('-!some-loader?{...}!resize-loader?{...}!file.png')
 async function generateSrcSetString(
+  context: loader.LoaderContext,
   remainingRequest: string,
-  loaders: any[],
-  loaderIndex: number,
-  options: FullOptions,
-  fs: InputFileSystem,
-  resourcePath: string
+  options: FullOptions
 ): Promise<string> {
+  const { fs, resourcePath } = context;
+
   let result = "";
   let width: number | undefined;
 
@@ -119,19 +111,20 @@ async function generateSrcSetString(
   const maxDensity = getMaxDensity(sizes);
   const separator = ", ";
   const requireStart = "${require('-!";
-  const requireEnd = "')}";
+  const requireEnd = "').default}";
 
   for (const size of sizes) {
     // no need for options.scale or options.width if size === "orignal"
     if (size === "original") {
-      result += `${requireStart}${getRequireString(
+      const requireString = await getRequireString(
+        context,
         remainingRequest,
-        loaders,
-        loaderIndex,
         {},
         options.resizeLoader,
         options.resizeLoaderOptionsGenerator
-      )}${requireEnd}${separator}`;
+      );
+
+      result += `${requireStart}${requireString}${requireEnd}${separator}`;
 
       continue;
     }
@@ -147,14 +140,15 @@ async function generateSrcSetString(
       if (width !== undefined && resizeLoaderOption.width > width) continue;
     }
 
-    result += `${requireStart}${getRequireString(
+    const requireString = await getRequireString(
+      context,
       remainingRequest,
-      loaders,
-      loaderIndex,
       resizeLoaderOption,
       options.resizeLoader,
       options.resizeLoaderOptionsGenerator
-    )}${requireEnd} ${size}${separator}`;
+    );
+
+    result += `${requireStart}${requireString}${requireEnd} ${size}${separator}`;
   }
 
   result = result.substring(0, result.length - 2);

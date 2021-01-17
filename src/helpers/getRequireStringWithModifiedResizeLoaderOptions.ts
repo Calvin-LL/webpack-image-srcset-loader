@@ -1,21 +1,30 @@
 import { parseQuery } from "loader-utils";
+import { loader } from "webpack";
 
 import { FullOptions } from "..";
 
+import resolveLoader from "./resolveLoader";
+
 // look through remaining loaders and add options to resize loader
-export default function getRequireStringWithModifiedResizeLoaderOptions(
+export default async function getRequireStringWithModifiedResizeLoaderOptions(
+  context: Omit<loader.LoaderContext, "loaders"> & {
+    loaders: {
+      path: string;
+      request: string;
+      options?: Record<string, any> | string;
+    }[];
+  },
   remainingRequest: string,
-  loaders: {
-    path: string;
-    request: string;
-    options?: Record<string, any> | string;
-  }[],
-  loaderIndex: number,
   options: { width?: number; scale?: number },
   resizeLoaderName: string,
   resizeLoaderOptionsGenerator: FullOptions["resizeLoaderOptionsGenerator"]
-): string {
-  const resizeLoaderResolvedPath = require.resolve(resizeLoaderName);
+): Promise<string> {
+  const { loaders, loaderIndex } = context;
+
+  const resizeLoaderResolvedPath = await resolveLoader(
+    context,
+    resizeLoaderName
+  );
   const resizeLoader = loaders.find(
     ({ path }, index) =>
       index > loaderIndex && path === resizeLoaderResolvedPath
