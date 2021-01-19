@@ -62,14 +62,9 @@ export function pitch(
 
   validateSizes(options.sizes);
 
-  generateSrcSetString(this, remainingRequest, options)
-    .then((srcSetString) => {
-      callback(
-        null,
-        `${
-          options.esModule ? "export default" : "module.exports ="
-        }  \`${srcSetString}\`;`
-      );
+  generateVirtualModuleCode(this, remainingRequest, options)
+    .then((code) => {
+      callback(null, code);
     })
     .catch((error) => {
       callback(error, undefined);
@@ -87,6 +82,11 @@ export function defaultResizeLoaderOptionsGenerator(
 ): Record<string, any> {
   return {
     ...existingOptions,
+    ...(existingOptions?.fileLoaderOptionsGenerator
+      ? {
+          fileLoaderOptionsGenerator: existingOptions.fileLoaderOptionsGenerator.toString(),
+        }
+      : {}),
     // since we filtered out all the width that are too wide,
     // nothing to worry about there, need this to make sure
     // scales larger than 1x works
@@ -96,22 +96,33 @@ export function defaultResizeLoaderOptionsGenerator(
   };
 }
 
-// return require('-!some-loader?{...}!resize-loader?{...}!file.png')
-async function generateSrcSetString(
+/**
+ * generate
+ *
+ * const import_0 = require('-!/Users/Calvin/GitHub/webpack-image-srcset-loader/node_modules/file-loader/dist/cjs.js!/Users/Calvin/GitHub/webpack-image-srcset-loader/node_modules/webpack-image-resize-loader/dist/cjs.js?{"scaleUp":true,"scale":0.5}!/Users/Calvin/GitHub/webpack-image-srcset-loader/test/e2e/fixtures/Macaca_nigra_self-portrait_large.jpg');
+ * const import_1 = require('-!/Users/Calvin/GitHub/webpack-image-srcset-loader/node_modules/file-loader/dist/cjs.js!/Users/Calvin/GitHub/webpack-image-srcset-loader/node_modules/webpack-image-resize-loader/dist/cjs.js?{"scaleUp":true,"width":300}!/Users/Calvin/GitHub/webpack-image-srcset-loader/test/e2e/fixtures/Macaca_nigra_self-portrait_large.jpg');
+ * const import_2 = require('-!/Users/Calvin/GitHub/webpack-image-srcset-loader/node_modules/file-loader/dist/cjs.js!/Users/Calvin/GitHub/webpack-image-srcset-loader/node_modules/webpack-image-resize-loader/dist/cjs.js?{"scaleUp":true}!/Users/Calvin/GitHub/webpack-image-srcset-loader/test/e2e/fixtures/Macaca_nigra_self-portrait_large.jpg');
+ * const import_3 = require('-!/Users/Calvin/GitHub/webpack-image-srcset-loader/node_modules/file-loader/dist/cjs.js!/Users/Calvin/GitHub/webpack-image-srcset-loader/node_modules/webpack-image-resize-loader/dist/cjs.js?{"scaleUp":true,"scale":1}!/Users/Calvin/GitHub/webpack-image-srcset-loader/test/e2e/fixtures/Macaca_nigra_self-portrait_large.jpg');
+ *
+ * export default `${import_0.default || import_0} 1x, ${import_1.default || import_1} 300w, ${import_2.default || import_2}, ${import_3.default || import_3} 2x`;
+ */
+async function generateVirtualModuleCode(
   context: loader.LoaderContext,
   remainingRequest: string,
   options: FullOptions
 ): Promise<string> {
   const { fs, resourcePath } = context;
 
-  let result = "";
+  let importBlock = "";
+  let exportBlock = "";
+  let importCount = 0;
   let width: number | undefined;
 
   const sizes = options.sizes;
   const maxDensity = getMaxDensity(sizes);
   const separator = ", ";
-  const requireStart = "${require('-!";
-  const requireEnd = "').default}";
+  const tsStart = "${";
+  const tsEnd = "}";
 
   for (const size of sizes) {
     // no need for options.scale or options.width if size === "orignal"
@@ -124,8 +135,10 @@ async function generateSrcSetString(
         options.resizeLoaderOptionsGenerator
       );
 
-      result += `${requireStart}${requireString}${requireEnd}${separator}`;
+      importBlock += `const import_${importCount} = require('-!${requireString}');\n`;
+      exportBlock += `${tsStart}import_${importCount}.default || import_${importCount}${tsEnd}${separator}`;
 
+      importCount++;
       continue;
     }
 
@@ -148,10 +161,19 @@ async function generateSrcSetString(
       options.resizeLoaderOptionsGenerator
     );
 
-    result += `${requireStart}${requireString}${requireEnd} ${size}${separator}`;
+    importBlock += `const import_${importCount} = require('-!${requireString}');\n`;
+    exportBlock += `${tsStart}import_${importCount}.default || import_${importCount}${tsEnd} ${size}${separator}`;
+
+    importCount++;
   }
 
-  result = result.substring(0, result.length - 2);
+  exportBlock = exportBlock.substring(0, exportBlock.length - 2);
+
+  const result = `
+  ${importBlock}
+  ${
+    options.esModule ? "export default `" : "module.exports = `"
+  }${exportBlock}\`;`.trim();
 
   return result;
 }

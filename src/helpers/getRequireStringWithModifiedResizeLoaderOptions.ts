@@ -42,23 +42,27 @@ export default async function getRequireStringWithModifiedResizeLoaderOptions(
   const resizeLoaderRequest = resizeLoader.request;
   const resizeLoaderPath = resizeLoader.path;
 
-  return remainingRequest.replace(
-    resizeLoaderRequest,
+  const newResizeLoaderQuery =
     resizeLoaderPath +
-      "?" +
-      escapeJsonStringForLoader(
-        JSON.stringify(
-          resizeLoaderOptionsGenerator(
-            options.width,
-            options.scale,
-            resizeLoaderOptions
-          )
+    "?" +
+    escapeJsonStringForLoader(
+      JSON.stringify(
+        resizeLoaderOptionsGenerator(
+          options.width,
+          options.scale,
+          resizeLoaderOptions
         )
       )
+    );
+  const newRequestString = remainingRequest.replace(
+    resizeLoaderRequest,
+    newResizeLoaderQuery
   );
+
+  return newRequestString;
 }
 
 // needed so webpack doesn't mistake "!" for query operator "!"
 function escapeJsonStringForLoader(s: string): string {
-  return s.replace(/!/g, "\\\\x21");
+  return s.replace(/!/g, "\\\\x21").replace(/\\n/g, "\\\\n");
 }
