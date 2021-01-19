@@ -38,6 +38,10 @@ import jpgSrcSet from "./some_pic.jpg?srcset";
 
 #### webpack.config.js
 
+`webpack-image-srcset-loader` should be placed before all other loaders
+
+Try [`webpack-sharp-loader`](https://github.com/Calvin-LL/webpack-sharp-loader) if you want to do other processing with your image before or after resizing
+
 ```javascript
 module.exports = {
   // ...
@@ -45,7 +49,7 @@ module.exports = {
     rules: [
       // ...
       {
-        test: /\.(png|jpe?g|svg|gif|webp|tiff?)$/i,
+        test: /\.(png|jpe?g|webp|tiff?)$/i,
         oneOf: [
           {
             // if the import url looks like "some.png?srcset..."
@@ -57,7 +61,9 @@ module.exports = {
                   sizes: ["480w", "1024w", "1920w", "2560w", "original"],
                 },
               },
+              "file-loader",
               "webpack-image-resize-loader",
+              // add webpack-sharp-loader if you want to pre-process your image e.g. rotating, flipping
             ],
           },
           {
@@ -75,7 +81,7 @@ module.exports = {
 
 #### Note:
 
-Additional options such as `quality` here will be passed down to [webpack-image-resize-loader](https://github.com/Calvin-LL/webpack-image-resize-loader). See [webpack-image-resize-loader's options](https://github.com/Calvin-LL/webpack-image-resize-loader#options).
+Additional options in the query (that thing after `?`) such as `quality` or `format` here will be passed down to [webpack-image-resize-loader](https://github.com/Calvin-LL/webpack-image-resize-loader). See [webpack-image-resize-loader's options](https://github.com/Calvin-LL/webpack-image-resize-loader#options).
 
 For example:
 
@@ -109,6 +115,27 @@ When true, if the desired width is greater than the image width, the size will n
 Note: this option has no effect on `"[number]x"` or `"original"`
 
 ### `resizeLoaderOptionsGenerator`
+
+##### default
+
+```javascript
+function defaultResizeLoaderOptionsGenerator(width, scale, existingOptions) {
+  return {
+    ...existingOptions,
+    ...(existingOptions?.fileLoaderOptionsGenerator
+      ? {
+          fileLoaderOptionsGenerator: existingOptions.fileLoaderOptionsGenerator.toString(),
+        }
+      : {}),
+    // since we filtered out all the width that are too wide,
+    // nothing to worry about there, need this to make sure
+    // scales larger than 1x works
+    scaleUp: true,
+    width,
+    scale,
+  };
+}
+```
 
 If you wish to use a resize loader other than [webpack-image-resize-loader](https://github.com/Calvin-LL/webpack-image-resize-loader). You may customize how the width and scale is passed down to that loader`s options.
 
