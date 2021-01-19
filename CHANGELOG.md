@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/Calvin-LL/webpack-image-srcset-loader/compare/v4.0.1...v5.0.0) (2021-01-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename customOptionsFactory to resizeLoaderOptionsGenerator
+* remove webpack-query-loader support
+
+### Features
+
+* remove webpack-query-loader support ([43ff24c](https://github.com/Calvin-LL/webpack-image-srcset-loader/commit/43ff24c425929356ce3112b6101fee1cba27299e))
+* rename customOptionsFactory to optionsGenerator ([678af94](https://github.com/Calvin-LL/webpack-image-srcset-loader/commit/678af94442c16105855d24c91c3184508546f6a8))
+* rename customOptionsFactory to resizeLoaderOptionsGenerator ([c5199d7](https://github.com/Calvin-LL/webpack-image-srcset-loader/commit/c5199d7d62dea4841371ff24ddebe46436541122))
+
+
+### Bug Fixes
+
+* fix typos in options.json ([3c2014a](https://github.com/Calvin-LL/webpack-image-srcset-loader/commit/3c2014a580be085d5b395854803cc06bd13321d4))
+* fix typos in options.json ([4a81bee](https://github.com/Calvin-LL/webpack-image-srcset-loader/commit/4a81beed79247a9290466167ae3a318472802637))
+
 ### [4.0.1](https://github.com/Calvin-LL/webpack-image-srcset-loader/compare/v4.0.0...v4.0.1) (2020-12-24)
 
 
