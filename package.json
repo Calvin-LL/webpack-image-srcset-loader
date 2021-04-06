@@ -68,6 +68,6 @@
     "ts-jest": "^26.5.4",
     "typescript": "^4.2.3",
     "webpack": "^4.46.0",
-    "webpack-image-resize-loader": "^4.0.0"
+    "webpack-image-resize-loader": "^4.0.2"
   }
 }
