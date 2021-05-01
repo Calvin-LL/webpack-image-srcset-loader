@@ -54,15 +54,14 @@ export default async function getRequireStringWithModifiedResizeLoaderOptions(
         )
       )
     );
-  const newRequestString = remainingRequest.replace(
-    resizeLoaderRequest,
-    newResizeLoaderQuery
-  );
+  const newRequestString = remainingRequest
+    .replace(resizeLoaderRequest, newResizeLoaderQuery)
+    .replace(/\\/g, "\\\\");
 
   return newRequestString;
 }
 
 // needed so webpack doesn't mistake "!" for query operator "!"
 function escapeJsonStringForLoader(s: string): string {
-  return s.replace(/!/g, "\\\\x21").replace(/\\n/g, "\\\\n");
+  return s.replace(/!/g, "\\x21");
 }
