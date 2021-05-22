@@ -41,7 +41,7 @@
     "js-string-escape": "^1.0.1",
     "loader-utils": "^2.0.0",
     "schema-utils": "^3.0.0",
-    "sharp": "^0.28.1"
+    "sharp": "^0.28.2"
   },
   "devDependencies": {
     "@calvin-l/webpack-loader-test-util": "^3.0.0",
