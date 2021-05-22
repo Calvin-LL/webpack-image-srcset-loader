@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.3](https://github.com/Calvin-LL/webpack-image-srcset-loader/compare/v5.0.2...v5.0.3) (2021-05-22)
+
+
+### Bug Fixes
+
+* fully escape string for usage in require call ([#272](https://github.com/Calvin-LL/webpack-image-srcset-loader/issues/272)) ([441e573](https://github.com/Calvin-LL/webpack-image-srcset-loader/commit/441e573963ec3472997dbb23c2a36a4a0713f66f))
+
 ### [5.0.2](https://github.com/Calvin-LL/webpack-image-srcset-loader/compare/v5.0.1...v5.0.2) (2021-05-01)
 
 
