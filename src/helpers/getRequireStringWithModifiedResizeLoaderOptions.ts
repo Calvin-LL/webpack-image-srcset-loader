@@ -1,3 +1,4 @@
+import escapeString from "js-string-escape";
 import { parseQuery } from "loader-utils";
 import { loader } from "webpack";
 
@@ -54,11 +55,12 @@ export default async function getRequireStringWithModifiedResizeLoaderOptions(
         )
       )
     );
-  const newRequestString = remainingRequest
-    .replace(resizeLoaderRequest, newResizeLoaderQuery)
-    .replace(/\\/g, "\\\\");
+  const newRequestString = remainingRequest.replace(
+    resizeLoaderRequest,
+    newResizeLoaderQuery
+  );
 
-  return newRequestString;
+  return escapeString(newRequestString);
 }
 
 // needed so webpack doesn't mistake "!" for query operator "!"
