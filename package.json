@@ -49,7 +49,7 @@
     "@commitlint/config-conventional": "^12.1.4",
     "@types/jest": "^26.0.22",
     "@types/js-string-escape": "^1.0.0",
-    "@types/node": "^15.12.0",
+    "@types/node": "^15.12.1",
     "@types/sharp": "^0.28.3",
     "@types/webpack": "^4.41.25",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
