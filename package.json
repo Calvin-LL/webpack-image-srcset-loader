@@ -59,7 +59,7 @@
     "eslint-plugin-import-helpers": "^1.1.0",
     "file-loader": "^6.1.0",
     "husky": "^4.3.7",
-    "jest": "^26.6.3",
+    "jest": "^27.0.4",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.1",
     "remark-cli": "^9.0.0",
