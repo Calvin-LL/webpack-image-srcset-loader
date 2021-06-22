@@ -68,7 +68,7 @@
     "remark-preset-lint-recommended": "^5.0.0",
     "standard-version": "^9.3.0",
     "ts-jest": "^26.5.6",
-    "typescript": "^4.3.2",
+    "typescript": "^4.3.4",
     "webpack": "^4.46.0",
     "webpack-image-resize-loader": "^4.0.0"
   }
