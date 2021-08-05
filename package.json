@@ -40,7 +40,7 @@
     "@calvin-l/webpack-loader-util": "^1.0.2",
     "js-string-escape": "^1.0.1",
     "loader-utils": "^2.0.0",
-    "schema-utils": "^3.1.0",
+    "schema-utils": "^3.1.1",
     "sharp": "^0.28.3"
   },
   "devDependencies": {
@@ -66,7 +66,7 @@
     "remark-lint": "^8.0.0",
     "remark-lint-no-dead-urls": "^1.1.0",
     "remark-preset-lint-recommended": "^5.0.0",
-    "standard-version": "^9.3.0",
+    "standard-version": "^9.3.1",
     "ts-jest": "^26.5.6",
     "typescript": "^4.3.5",
     "webpack": "^4.46.0",
