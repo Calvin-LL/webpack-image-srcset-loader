@@ -40,7 +40,7 @@
     "@calvin-l/webpack-loader-util": "^1.0.2",
     "js-string-escape": "^1.0.1",
     "loader-utils": "^2.0.0",
-    "schema-utils": "^3.1.0",
+    "schema-utils": "^3.1.1",
     "sharp": "^0.28.3"
   },
   "devDependencies": {
@@ -49,7 +49,7 @@
     "@commitlint/config-conventional": "^12.1.4",
     "@types/jest": "^27.0.1",
     "@types/js-string-escape": "^1.0.0",
-    "@types/node": "^16.4.12",
+    "@types/node": "^16.6.1",
     "@types/sharp": "^0.28.5",
     "@types/webpack": "^4.41.25",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
