@@ -58,7 +58,7 @@
     "eslint": "^7.32.0",
     "eslint-plugin-import-helpers": "^1.1.0",
     "file-loader": "^6.1.0",
-    "husky": "^4.3.7",
+    "husky": "^7.0.1",
     "jest": "^26.6.3",
     "lint-staged": "^11.1.1",
     "prettier": "^2.3.2",
