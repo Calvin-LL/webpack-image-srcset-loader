@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@calvin-l/webpack-loader-test-util": "^3.0.0",
-    "@commitlint/cli": "^12.1.4",
+    "@commitlint/cli": "^13.2.1",
     "@commitlint/config-conventional": "^12.1.4",
     "@types/jest": "^27.0.1",
     "@types/js-string-escape": "^1.0.0",
