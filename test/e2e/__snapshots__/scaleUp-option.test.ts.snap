@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`v4 "scaleUp" option should not skip original size: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpeg 2912w"`;
+exports[`v4 "scaleUp" option should not skip original size: result 1`] = `"d54b9cb29bdbebfb70ded5bf57eddfe8.jpeg 2912w"`;
 
-exports[`v4 "scaleUp" option should skip greater size: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpeg 1x"`;
+exports[`v4 "scaleUp" option should skip greater size: result 1`] = `"d54b9cb29bdbebfb70ded5bf57eddfe8.jpeg 1x"`;
 
-exports[`v4 "scaleUp" option should work with true: result 1`] = `"b9b3e9233f4da1756d2ea6b68b751583.jpeg 2913w"`;
+exports[`v4 "scaleUp" option should work with true: result 1`] = `"2ae9963c8661bd3ae23e25623a3867d1.jpeg 2913w"`;
 
-exports[`v5 "scaleUp" option should not skip original size: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpeg 2912w"`;
+exports[`v5 "scaleUp" option should not skip original size: result 1`] = `"d54b9cb29bdbebfb70ded5bf57eddfe8.jpeg 2912w"`;
 
-exports[`v5 "scaleUp" option should skip greater size: result 1`] = `"bd2b9fdf768b5eb139702c4c3b4573de.jpeg 1x"`;
+exports[`v5 "scaleUp" option should skip greater size: result 1`] = `"d54b9cb29bdbebfb70ded5bf57eddfe8.jpeg 1x"`;
 
-exports[`v5 "scaleUp" option should work with true: result 1`] = `"b9b3e9233f4da1756d2ea6b68b751583.jpeg 2913w"`;
+exports[`v5 "scaleUp" option should work with true: result 1`] = `"2ae9963c8661bd3ae23e25623a3867d1.jpeg 2913w"`;
