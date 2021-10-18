@@ -51,7 +51,7 @@
     "@types/js-string-escape": "^1.0.0",
     "@types/node": "^16.4.12",
     "@types/sharp": "^0.28.5",
-    "@types/webpack": "^4.41.25",
+    "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "commitizen": "^4.2.4",
