@@ -52,7 +52,7 @@
     "@types/node": "^16.4.12",
     "@types/sharp": "^0.28.5",
     "@types/webpack": "^4.41.25",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.0.0",
     "commitizen": "^4.2.4",
     "eslint": "^7.32.0",
